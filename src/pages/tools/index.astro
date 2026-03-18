@@ -1,0 +1,152 @@
+---
+/**
+ * tools/index.astro — Clinical Tools Hub
+ *
+ * A grid of all available clinical tools organized by category.
+ * Locked tools show what phase must be completed to access them.
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+
+const tools = [
+  {
+    category: 'Assessment & Calculation',
+    items: [
+      {
+        id: 'dosage-calculator',
+        title: 'Dosage Calculator',
+        description: 'Five-level progressive dosage calculation practice — from basic unit conversions through critical care infusion rates.',
+        phase: 1,
+        unlocked: true,
+        href: '/bsn-in-a-box/tools/dosage-calculator',
+        icon: '∑',
+      },
+      {
+        id: 'clinical-calculator',
+        title: 'Clinical Calculators',
+        description: 'GFR, BMI, BSA, Braden Scale, NIHSS, APGAR, Wells Score, and more — all bundled for offline use.',
+        phase: 1,
+        unlocked: true,
+        href: '/bsn-in-a-box/tools/clinical-calculator',
+        icon: '⊕',
+      },
+    ],
+  },
+  {
+    category: 'Simulation & Decision-Making',
+    items: [
+      {
+        id: 'simulation',
+        title: 'Clinical Simulations',
+        description: 'Branching scenario engine for all six longitudinal patients. Make clinical decisions and see consequences unfold.',
+        phase: 1,
+        unlocked: true,
+        href: '/bsn-in-a-box/tools/simulation',
+        icon: '⬡',
+      },
+      {
+        id: 'sbar-builder',
+        title: 'SBAR Communication Builder',
+        description: 'Practice structured clinical communication with ten patient scenarios and real-time coaching.',
+        phase: 1,
+        unlocked: true,
+        href: '/bsn-in-a-box/tools/sbar-builder',
+        icon: '☷',
+      },
+      {
+        id: 'priority-patients',
+        title: 'Priority Patients',
+        description: 'Ten multi-patient assignment scenarios. Practice triage, prioritization, and delegation decisions.',
+        phase: 2,
+        unlocked: false,
+        href: '/bsn-in-a-box/tools/priority-patients',
+        icon: '⊘',
+      },
+    ],
+  },
+  {
+    category: 'Reference & Study',
+    items: [
+      {
+        id: 'flashcards',
+        title: 'Flashcard System',
+        description: '200+ starter cards organized by concept tag, integrated with your spaced retrieval schedule.',
+        phase: 1,
+        unlocked: true,
+        href: '/bsn-in-a-box/tools/flashcards',
+        icon: '▦',
+      },
+      {
+        id: 'nclex-readiness',
+        title: 'NCLEX Readiness Meter',
+        description: 'Composite weighted readiness score with breakdown by client needs category, trend chart, and concept mastery heatmap.',
+        phase: 2,
+        unlocked: false,
+        href: '/bsn-in-a-box/tools/nclex-readiness',
+        icon: '◎',
+      },
+      {
+        id: 'care-plan-builder',
+        title: 'Care Plan Builder',
+        description: 'Step-by-step nursing diagnosis construction with NANDA labels, NOC outcomes, and NIC interventions.',
+        phase: 1,
+        unlocked: true,
+        href: '/bsn-in-a-box/tools/care-plan-builder',
+        icon: '♡',
+      },
+    ],
+  },
+];
+---
+
+<DashboardLayout
+  title="Clinical Tools"
+  description="All BSN in a Box clinical tools — calculators, simulations, flashcards, and more."
+>
+  <h1 class="font-serif text-3xl font-bold text-white mb-2">Clinical Tools</h1>
+  <p class="text-slate-400 mb-8 max-w-prose">
+    Every tool on this page is bundled for offline use. Nothing requires an internet connection
+    after your first visit. Tools requiring Phase 2 or later unlock automatically when you
+    pass the relevant gateway exam.
+  </p>
+
+  {tools.map((category) => (
+    <section class="mb-10" aria-labelledby={`cat-${category.category}`}>
+      <h2
+        id={`cat-${category.category}`}
+        class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4"
+      >
+        {category.category}
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {category.items.map((tool) => (
+          tool.unlocked ? (
+            <a
+              href={tool.href}
+              class="rounded-xl border border-slate-700 bg-slate-900 p-6 hover:border-teal-700 hover:bg-slate-800 transition-colors block"
+            >
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-2xl text-teal-400" aria-hidden="true">{tool.icon}</span>
+                <h3 class="font-serif font-bold text-white">{tool.title}</h3>
+              </div>
+              <p class="text-sm text-slate-400 leading-relaxed">{tool.description}</p>
+            </a>
+          ) : (
+            <div
+              class="rounded-xl border border-slate-800 bg-slate-900 p-6 opacity-50 cursor-not-allowed"
+              aria-label={`${tool.title} — locked until Phase ${tool.phase}`}
+            >
+              <div class="flex items-center gap-3 mb-3">
+                <span class="text-2xl text-slate-600" aria-hidden="true">{tool.icon}</span>
+                <h3 class="font-serif font-bold text-slate-500">{tool.title}</h3>
+              </div>
+              <p class="text-sm text-slate-600 leading-relaxed mb-3">{tool.description}</p>
+              <p class="text-xs text-gold-600 font-bold">
+                Unlocks after Phase {tool.phase - 1} gateway exam
+              </p>
+            </div>
+          )
+        ))}
+      </div>
+    </section>
+  ))}
+</DashboardLayout>

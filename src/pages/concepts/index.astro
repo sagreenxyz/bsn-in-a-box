@@ -1,0 +1,81 @@
+---
+/**
+ * concepts/index.astro — Core Nursing Concepts Index
+ *
+ * Lists all 35 core nursing concepts with brief descriptions.
+ * Each concept links to a detail page showing all modules tagged with it
+ * and the student's mastery level for that concept.
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const concepts = [
+  { id: 'oxygenation', description: 'The process of supplying and utilizing oxygen at the cellular level, from airway patency to tissue oxygenation.' },
+  { id: 'perfusion', description: 'Delivery of oxygenated blood to tissues via adequate cardiac output, vascular tone, and blood volume.' },
+  { id: 'fluid-and-electrolytes', description: 'Regulation of body water volume and solute composition — the foundation of hemodynamic stability.' },
+  { id: 'immunity', description: 'The body\'s defense systems against pathogens, foreign cells, and aberrant self-cells.' },
+  { id: 'inflammation', description: 'The vascular and cellular response to tissue injury — protective when acute, damaging when chronic.' },
+  { id: 'elimination', description: 'Removal of metabolic waste products via urinary, intestinal, and integumentary pathways.' },
+  { id: 'mobility', description: 'Physical movement capacity and its relationship to independence, safety, and systemic health.' },
+  { id: 'cognition', description: 'Higher-order mental processes including attention, memory, executive function, and clinical judgment.' },
+  { id: 'mood-and-affect', description: 'Emotional states and their expression — from normal variation through pathological extremes.' },
+  { id: 'reproduction', description: 'Human reproductive health across the lifespan, including pregnancy, labor, and neonatal adaptation.' },
+  { id: 'thermoregulation', description: 'Maintenance of core body temperature within a narrow physiological range.' },
+  { id: 'gas-exchange', description: 'The movement of oxygen and carbon dioxide between the atmosphere, alveoli, and blood.' },
+  { id: 'clotting', description: 'The coagulation cascade and its clinical implications — from hemostasis through thromboembolic disease.' },
+  { id: 'glucose-regulation', description: 'Hormonal and cellular mechanisms maintaining blood glucose homeostasis.' },
+  { id: 'pain', description: 'The subjective experience of pain — its mechanisms, assessment, and multimodal management.' },
+  { id: 'infection', description: 'Host-pathogen interactions, infection prevention, recognition, and treatment principles.' },
+  { id: 'sensory-perception', description: 'Processing of sensory input from the environment — vision, hearing, touch, proprioception.' },
+  { id: 'nutrition', description: 'Nutrient intake, digestion, absorption, metabolism, and the nursing implications of nutritional status.' },
+  { id: 'tissue-integrity', description: 'Maintenance of intact skin and mucous membranes as physical and immune barriers.' },
+  { id: 'cellular-regulation', description: 'Normal cell cycle control and the consequences of dysregulation, including cancer biology.' },
+  { id: 'acid-base-balance', description: 'Regulation of blood pH and the four primary imbalances — metabolic and respiratory, acidosis and alkalosis.' },
+  { id: 'hormonal-regulation', description: 'Endocrine system function — glandular feedback loops, hormone mechanisms, and clinical dysregulation.' },
+  { id: 'intracranial-regulation', description: 'Maintenance of intracranial pressure and cerebral perfusion — from normal physiology through ICP crisis.' },
+  { id: 'coping', description: 'Psychological strategies for managing stress, illness, and life challenges — adaptive and maladaptive.' },
+  { id: 'stress', description: 'The physiological and psychological response to perceived threat — acute and chronic.' },
+  { id: 'development', description: 'Growth and change across the human lifespan — from neonatal adaptation through late adulthood.' },
+  { id: 'ethics', description: 'Moral reasoning in clinical practice — the four principles, the ANA Code, and real ethical conflicts.' },
+  { id: 'communication', description: 'Therapeutic communication, SBAR, health literacy, cultural competence, and difficult conversations.' },
+  { id: 'safety', description: 'Error prevention, patient identification, fall prevention, medication safety, and a culture of safety.' },
+  { id: 'health-promotion', description: 'Primary, secondary, and tertiary prevention — addressing determinants of health across populations.' },
+  { id: 'leadership', description: 'Clinical leadership, delegation, conflict resolution, and navigating organizational complexity.' },
+  { id: 'evidence-based-practice', description: 'Integrating best research evidence with clinical expertise and patient values.' },
+  { id: 'informatics', description: 'Health information technology, the electronic health record, and data-driven clinical decision support.' },
+  { id: 'collaboration', description: 'Interprofessional teamwork — roles, communication, and shared decision-making across disciplines.' },
+  { id: 'care-coordination', description: 'Managing transitions of care, care continuity, and the patient\'s journey across settings.' },
+];
+---
+
+<DashboardLayout
+  title="Core Nursing Concepts"
+  description="All 35 core nursing concepts in the BSN in a Box concept-based curriculum — click any concept to see all modules tagged with it."
+>
+  <h1 class="font-serif text-3xl font-bold text-white mb-2">Core Nursing Concepts</h1>
+  <p class="text-slate-400 mb-8 max-w-prose leading-relaxed">
+    Every module in the curriculum is tagged with one or more of these 35 core concepts.
+    Rather than organizing nursing knowledge by disease or body system — which produces students
+    who can recall facts about conditions but struggle to transfer their reasoning to new
+    presentations — BSN in a Box organizes learning around these enduring concepts that cut
+    across all specialties and all patient populations. Click any concept to see every module
+    that addresses it and your current mastery level within that concept.
+  </p>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+    {concepts.map((concept) => (
+      <a
+        href={`${base}concepts/${concept.id}`}
+        class="rounded-lg border border-slate-700 bg-slate-900 p-4 hover:border-teal-700 hover:bg-slate-800 transition-colors block"
+      >
+        <h2 class="font-medium text-teal-300 capitalize mb-1">
+          {concept.id.replace(/-/g, ' ')}
+        </h2>
+        <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">
+          {concept.description}
+        </p>
+      </a>
+    ))}
+  </div>
+</DashboardLayout>

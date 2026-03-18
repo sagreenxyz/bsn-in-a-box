@@ -1,0 +1,157 @@
+---
+/**
+ * index.astro — Main Dashboard
+ *
+ * The student's home base. Shows overall progress, phase status, retrieval
+ * reminders, longitudinal patient status, and a "study this next" recommendation.
+ */
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+---
+
+<DashboardLayout
+  title="Dashboard"
+  description="Your BSN in a Box learning dashboard — track your progress, study reminders, and next steps."
+>
+  <!-- Snapshot section -->
+  <section class="mb-10" aria-labelledby="snapshot-heading">
+    <h2 id="snapshot-heading" class="text-xl font-serif font-bold text-white mb-6">
+      Your Progress Snapshot
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Overall progress ring placeholder -->
+      <div class="rounded-xl border border-slate-700 bg-slate-900 p-6 flex flex-col items-center gap-3">
+        <div
+          class="w-24 h-24 rounded-full border-4 border-teal-500 flex items-center justify-center"
+          aria-label="Overall completion: 0%"
+        >
+          <span class="font-mono text-2xl font-bold text-teal-400">0%</span>
+        </div>
+        <p class="text-sm text-slate-400 text-center">Overall Completion</p>
+      </div>
+
+      <!-- Current phase indicator -->
+      <div class="rounded-xl border border-slate-700 bg-slate-900 p-6 flex flex-col justify-center gap-2">
+        <p class="text-xs uppercase tracking-widest text-slate-500 font-bold">Current Phase</p>
+        <p class="text-2xl font-serif font-bold text-white">Phase 1</p>
+        <p class="text-sm text-teal-400">Foundations of Nursing Practice</p>
+      </div>
+
+      <!-- NCLEX readiness gauge -->
+      <div class="rounded-xl border border-slate-700 bg-slate-900 p-6 flex flex-col justify-center gap-2">
+        <p class="text-xs uppercase tracking-widest text-slate-500 font-bold">NCLEX Readiness</p>
+        <p class="text-2xl font-serif font-bold text-white">—</p>
+        <p class="text-sm text-slate-400">Complete Phase 1 to unlock</p>
+      </div>
+
+      <!-- Study streak -->
+      <div class="rounded-xl border border-slate-700 bg-slate-900 p-6 flex flex-col justify-center gap-2">
+        <p class="text-xs uppercase tracking-widest text-slate-500 font-bold">Study Streak</p>
+        <p class="text-2xl font-serif font-bold text-white">0 days</p>
+        <p class="text-sm text-slate-400">Start your streak today</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Continue where you left off -->
+  <section class="mb-10" aria-labelledby="continue-heading">
+    <h2 id="continue-heading" class="text-xl font-serif font-bold text-white mb-4">
+      Continue Learning
+    </h2>
+    <div class="rounded-xl border border-teal-700 bg-teal-950 p-6 flex items-center justify-between gap-4">
+      <div>
+        <p class="text-sm text-teal-400 font-medium mb-1">Next module in Phase 1</p>
+        <p class="text-lg font-serif font-bold text-white">The Discipline of Nursing</p>
+        <p class="text-sm text-slate-400 mt-1">Domain 1 · Unit 1 · 45 min estimated</p>
+      </div>
+      <a
+        href="/bsn-in-a-box/phase/1/professional-identity/nursing-profession/p1-d1-u1-m01"
+        class="rounded-lg bg-teal-600 px-6 py-3 font-bold text-white hover:bg-teal-500 transition-colors whitespace-nowrap min-h-[44px] flex items-center"
+      >
+        Start →
+      </a>
+    </div>
+  </section>
+
+  <!-- Phase progress cards -->
+  <section class="mb-10" aria-labelledby="phases-heading">
+    <h2 id="phases-heading" class="text-xl font-serif font-bold text-white mb-6">
+      Curriculum Phases
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {[
+        { phase: 1, title: 'Foundations of Nursing Practice', unlocked: true, color: 'teal' },
+        { phase: 2, title: 'Intermediate Clinical Practice', unlocked: false, color: 'slate' },
+        { phase: 3, title: 'Advanced Clinical Nursing', unlocked: false, color: 'slate' },
+        { phase: 4, title: 'Synthesis and Leadership', unlocked: false, color: 'slate' },
+      ].map((p) => (
+        <div class={`rounded-xl border p-6 ${p.unlocked ? 'border-teal-700 bg-slate-900' : 'border-slate-700 bg-slate-900 opacity-60'}`}>
+          <div class="flex items-start justify-between mb-3">
+            <span class={`text-xs font-bold uppercase tracking-widest ${p.unlocked ? 'text-teal-400' : 'text-slate-500'}`}>
+              Phase {p.phase}
+            </span>
+            {!p.unlocked && (
+              <span class="text-slate-600" aria-label="Locked">⊘</span>
+            )}
+          </div>
+          <p class="font-serif font-bold text-white text-sm leading-snug mb-3">{p.title}</p>
+          <div class="w-full bg-slate-700 rounded-full h-1.5">
+            <div class={`h-1.5 rounded-full ${p.unlocked ? 'bg-teal-500' : 'bg-slate-600'}`} style="width: 0%"></div>
+          </div>
+          <p class="text-xs text-slate-500 mt-2">0% complete</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Spaced retrieval reminders -->
+  <section class="mb-10" aria-labelledby="retrieval-heading">
+    <h2 id="retrieval-heading" class="text-xl font-serif font-bold text-white mb-4">
+      Spaced Retrieval
+    </h2>
+    <div class="rounded-xl border border-slate-700 bg-slate-900 p-6 text-center text-slate-400">
+      <p>No retrievals are due yet. Complete your first module to start your spaced retrieval schedule.</p>
+    </div>
+  </section>
+
+  <!-- Longitudinal patients -->
+  <section class="mb-10" aria-labelledby="patients-heading">
+    <h2 id="patients-heading" class="text-xl font-serif font-bold text-white mb-6">
+      Your Patients
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {[
+        { id: 'marcus-webb', name: 'Marcus Webb', age: 24, thread: 'Diabetes, social determinants of health' },
+        { id: 'eleanor-vasquez', name: 'Eleanor Vasquez', age: 67, thread: 'Cardiovascular, renal, end-of-life' },
+        { id: 'jordan-okafor', name: 'Jordan Okafor', age: 34, thread: 'Psychiatric-mental health, surgical' },
+        { id: 'amara-osei', name: 'Amara Osei', age: 28, thread: 'Maternal-newborn, obstetric emergencies' },
+        { id: 'thomas-nguyen', name: 'Thomas Nguyen', age: 8, thread: 'Pediatric, respiratory, school health' },
+        { id: 'ruth-abramowitz', name: 'Ruth Abramowitz', age: 81, thread: 'Geriatric, polypharmacy, ethics' },
+      ].map((patient) => (
+        <a
+          href={`/bsn-in-a-box/patients/${patient.id}`}
+          class="rounded-xl border border-slate-700 bg-slate-900 p-5 hover:border-teal-700 hover:bg-slate-800 transition-colors block"
+        >
+          <p class="font-serif font-bold text-white mb-1">{patient.name}</p>
+          <p class="text-xs text-slate-500 mb-3">Age {patient.age}</p>
+          <p class="text-sm text-slate-400 leading-relaxed">{patient.thread}</p>
+          <p class="text-xs text-teal-500 mt-3">0 encounters completed</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Study recommendation -->
+  <section aria-labelledby="recommendation-heading">
+    <h2 id="recommendation-heading" class="text-xl font-serif font-bold text-white mb-4">
+      Recommended Next Step
+    </h2>
+    <div class="rounded-xl border border-gold-700 bg-gold-950 p-6">
+      <p class="text-gold-300 font-medium mb-2">Begin your BSN journey</p>
+      <p class="text-slate-200 leading-relaxed">
+        Start with <strong class="text-white">Module 1: The Discipline of Nursing</strong> to establish
+        the professional and philosophical foundation that underpins everything else in the curriculum.
+        This module introduces nursing's metaparadigm and your first longitudinal patient, Marcus Webb.
+      </p>
+    </div>
+  </section>
+</DashboardLayout>

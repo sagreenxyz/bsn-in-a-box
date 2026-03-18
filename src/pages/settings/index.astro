@@ -1,0 +1,231 @@
+---
+/**
+ * settings/index.astro — Student Settings and Data Management
+ *
+ * Export progress as JSON, import from a backup file, reset all progress,
+ * toggle theme, and adjust font size preference.
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+---
+
+<DashboardLayout
+  title="Settings"
+  description="Manage your BSN in a Box study data, preferences, and account settings."
+>
+  <h1 class="font-serif text-3xl font-bold text-white mb-2">Settings</h1>
+  <p class="text-slate-400 mb-8 max-w-prose">
+    All your study data lives exclusively in your browser's local storage. Nothing is sent
+    to any server. You own your data completely. Use the export function to back up your
+    progress regularly.
+  </p>
+
+  <div class="max-w-2xl space-y-8">
+    <!-- Data Management -->
+    <section class="rounded-xl border border-slate-700 bg-slate-900 p-6" aria-labelledby="data-heading">
+      <h2 id="data-heading" class="font-serif text-xl font-bold text-white mb-4">
+        Data Management
+      </h2>
+
+      <div class="space-y-4">
+        <!-- Export -->
+        <div class="flex items-start justify-between gap-4 py-3 border-b border-slate-800">
+          <div>
+            <p class="font-medium text-white mb-1">Export Progress</p>
+            <p class="text-sm text-slate-400">
+              Download your complete study history as a JSON file. Save it as a backup or to
+              transfer to another device.
+            </p>
+          </div>
+          <button
+            id="export-btn"
+            type="button"
+            class="rounded-lg bg-teal-600 px-4 py-2 text-sm font-bold text-white hover:bg-teal-500 transition-colors whitespace-nowrap min-h-[44px]"
+          >
+            Export JSON
+          </button>
+        </div>
+
+        <!-- Import -->
+        <div class="flex items-start justify-between gap-4 py-3 border-b border-slate-800">
+          <div>
+            <p class="font-medium text-white mb-1">Import Progress</p>
+            <p class="text-sm text-slate-400">
+              Restore a previously exported progress file. The file will be validated before
+              any data is written. Your current progress will be overwritten.
+            </p>
+          </div>
+          <label
+            class="rounded-lg bg-slate-700 px-4 py-2 text-sm font-bold text-white hover:bg-slate-600 transition-colors whitespace-nowrap cursor-pointer min-h-[44px] flex items-center"
+          >
+            Import JSON
+            <input
+              id="import-input"
+              type="file"
+              accept=".json"
+              class="sr-only"
+              aria-label="Import progress JSON file"
+            />
+          </label>
+        </div>
+
+        <!-- Reset -->
+        <div class="py-3">
+          <p class="font-medium text-crimson-400 mb-1">Reset All Progress</p>
+          <p class="text-sm text-slate-400 mb-3">
+            Permanently erases all study history, quiz results, journal entries, and preferences.
+            This cannot be undone. Type <code class="font-mono text-crimson-300">RESET</code> in the
+            field below to confirm.
+          </p>
+          <div class="flex gap-3">
+            <input
+              id="reset-confirmation"
+              type="text"
+              placeholder="Type RESET to confirm"
+              class="flex-1 rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-crimson-500 focus:outline-none min-h-[44px]"
+              aria-label="Type RESET to confirm progress deletion"
+            />
+            <button
+              id="reset-btn"
+              type="button"
+              class="rounded-lg bg-crimson-800 px-4 py-2 text-sm font-bold text-white hover:bg-crimson-700 transition-colors whitespace-nowrap min-h-[44px]"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Preferences -->
+    <section class="rounded-xl border border-slate-700 bg-slate-900 p-6" aria-labelledby="prefs-heading">
+      <h2 id="prefs-heading" class="font-serif text-xl font-bold text-white mb-4">
+        Preferences
+      </h2>
+      <div class="space-y-4">
+        <!-- Theme -->
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <p class="font-medium text-white">Color Theme</p>
+            <p class="text-sm text-slate-400">Choose between dark mode, light mode, or system default.</p>
+          </div>
+          <select
+            id="theme-select"
+            class="rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-sm text-white focus:border-teal-500 focus:outline-none min-h-[44px]"
+            aria-label="Color theme preference"
+          >
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="system">System</option>
+          </select>
+        </div>
+
+        <!-- Font size -->
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <p class="font-medium text-white">Font Size</p>
+            <p class="text-sm text-slate-400">Adjust text size for comfort during long study sessions.</p>
+          </div>
+          <select
+            id="fontscale-select"
+            class="rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-sm text-white focus:border-teal-500 focus:outline-none min-h-[44px]"
+            aria-label="Font size preference"
+          >
+            <option value="0.85">Smaller</option>
+            <option value="1.0" selected>Default</option>
+            <option value="1.15">Larger</option>
+            <option value="1.3">Largest</option>
+          </select>
+        </div>
+
+        <!-- Default lesson mode -->
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <p class="font-medium text-white">Default Lesson Mode</p>
+            <p class="text-sm text-slate-400">How you prefer to engage with lesson content by default.</p>
+          </div>
+          <select
+            id="mode-select"
+            class="rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-sm text-white focus:border-teal-500 focus:outline-none min-h-[44px]"
+            aria-label="Default lesson mode preference"
+          >
+            <option value="read">Read</option>
+            <option value="listen">Listen</option>
+            <option value="visual">Visual</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="rounded-xl border border-slate-700 bg-slate-900 p-6" aria-labelledby="about-heading">
+      <h2 id="about-heading" class="font-serif text-xl font-bold text-white mb-4">About</h2>
+      <dl class="space-y-2 text-sm">
+        <div class="flex gap-4">
+          <dt class="text-slate-500 w-24 shrink-0">Version</dt>
+          <dd class="text-white font-mono">0.1.0</dd>
+        </div>
+        <div class="flex gap-4">
+          <dt class="text-slate-500 w-24 shrink-0">License</dt>
+          <dd class="text-white">MIT — free to use, modify, and distribute</dd>
+        </div>
+        <div class="flex gap-4">
+          <dt class="text-slate-500 w-24 shrink-0">Source</dt>
+          <dd>
+            <a
+              href="https://github.com/sagreenxyz/bsn-in-a-box"
+              class="text-teal-400 hover:text-teal-300 underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              github.com/sagreenxyz/bsn-in-a-box
+            </a>
+          </dd>
+        </div>
+      </dl>
+    </section>
+  </div>
+
+  <script>
+    import { exportProgress, importProgress, resetAllProgress } from '../../lib/progressStore.ts';
+
+    // Export
+    document.getElementById('export-btn')?.addEventListener('click', () => {
+      const json = exportProgress();
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const date = new Date().toISOString().split('T')[0];
+      a.href = url;
+      a.download = `bsn-progress-${date}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Import
+    document.getElementById('import-input')?.addEventListener('change', (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const json = ev.target?.result as string;
+        const result = importProgress(json);
+        alert(result.message);
+        if (result.success) window.location.reload();
+      };
+      reader.readAsText(file);
+    });
+
+    // Reset
+    document.getElementById('reset-btn')?.addEventListener('click', () => {
+      const input = document.getElementById('reset-confirmation') as HTMLInputElement;
+      const success = resetAllProgress(input.value);
+      if (success) {
+        alert('All progress has been reset.');
+        input.value = '';
+        window.location.href = '/bsn-in-a-box/';
+      } else {
+        alert('Reset not performed. Type RESET exactly to confirm.');
+      }
+    });
+  </script>
+</DashboardLayout>

@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Self-hosted fonts
+ *
+ * Lora (serif): A well-crafted contemporary serif designed by Cyreal. Its
+ * moderate contrast and brushed curves convey the authority of an academic
+ * textbook while remaining highly readable at body sizes. It is ideal for
+ * headings and introductory prose in a clinical education context.
+ *
+ * Inter (sans-serif): A typeface designed by Rasmus Andersson specifically
+ * for computer screens. Its open apertures, tall x-height, and neutral
+ * letterforms reduce cognitive load during long reading sessions — exactly
+ * what a student working through dense nursing content needs.
+ *
+ * JetBrains Mono (monospace): Designed by JetBrains for developer tooling.
+ * Its increased line height and clear distinction between similar characters
+ * (0/O, l/I/1) make it ideal for displaying lab values, drug doses, and
+ * calculation results where misreading a digit has clinical consequences.
+ */
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/bsn-in-a-box/fonts/Lora-VariableFont_wght.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/bsn-in-a-box/fonts/Lora-Italic-VariableFont_wght.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/bsn-in-a-box/fonts/Inter-VariableFont_opsz,wght.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url('/bsn-in-a-box/fonts/JetBrainsMono-VariableFont_wght.woff2') format('woff2');
+}
+
+/* Design tokens */
+:root {
+  --color-navy: #0f172a;
+  --color-teal: #14b8a6;
+  --color-gold: #f59e0b;
+  --color-crimson: #e11d48;
+  --font-serif: 'Lora', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', Menlo, monospace;
+  --reading-width: 70ch;
+}
+
+/* Base document styles */
+html {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-navy text-slate-100 min-h-screen;
+}
+
+/* Ensure all interactive elements meet 44×44px minimum touch target */
+button,
+a,
+[role="button"],
+[role="tab"],
+[role="menuitem"],
+input[type="checkbox"],
+input[type="radio"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Prose content styles for lesson modules */
+.prose-lesson {
+  @apply text-slate-200 leading-relaxed max-w-prose;
+}
+
+.prose-lesson h1 {
+  font-family: var(--font-serif);
+  @apply text-3xl font-bold text-white mb-6 mt-8;
+}
+
+.prose-lesson h2 {
+  font-family: var(--font-serif);
+  @apply text-2xl font-bold text-teal-300 mb-4 mt-8;
+}
+
+.prose-lesson h3 {
+  font-family: var(--font-serif);
+  @apply text-xl font-semibold text-slate-100 mb-3 mt-6;
+}
+
+.prose-lesson p {
+  @apply mb-4 leading-7;
+}
+
+.prose-lesson ul,
+.prose-lesson ol {
+  @apply mb-4 pl-6 space-y-2;
+}
+
+.prose-lesson li {
+  @apply leading-7;
+}
+
+.prose-lesson strong {
+  @apply text-white font-semibold;
+}
+
+.prose-lesson em {
+  @apply text-teal-300 not-italic font-medium;
+}
+
+.prose-lesson code {
+  font-family: var(--font-mono);
+  @apply text-sm bg-slate-800 text-gold-300 px-1.5 py-0.5 rounded;
+}
+
+.prose-lesson blockquote {
+  @apply border-l-4 border-teal-500 pl-4 my-6 text-slate-300 italic;
+}
+
+/* Threshold concept callout block */
+.threshold-concept {
+  @apply border-l-4 border-gold-500 bg-navy-950 rounded-r-lg p-6 my-8;
+}
+
+.threshold-concept-label {
+  @apply text-gold-400 font-bold text-sm uppercase tracking-widest mb-2;
+  font-family: var(--font-mono);
+}
+
+/* Lab values and clinical data display */
+.clinical-data {
+  font-family: var(--font-mono);
+  @apply text-sm;
+}
+
+/* Knowledge freshness indicators */
+.freshness-fresh {
+  @apply text-teal-400;
+}
+
+.freshness-due {
+  @apply text-gold-400;
+}
+
+.freshness-overdue {
+  @apply text-crimson-400;
+}
+
+/* Phase lock overlay */
+.phase-locked {
+  @apply relative cursor-not-allowed;
+}
+
+.phase-locked::after {
+  content: '';
+  @apply absolute inset-0 bg-navy bg-opacity-60 rounded-lg;
+}
+
+/* Focus ring for accessibility */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-teal-400;
+}
+
+/* Skip-to-content link */
+.skip-link {
+  @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50
+    bg-teal-600 text-white px-4 py-2 rounded font-semibold;
+}
+
+/* Reading progress bar */
+.reading-progress {
+  @apply fixed top-0 left-0 h-1 bg-teal-500 z-50 transition-all duration-150;
+}
