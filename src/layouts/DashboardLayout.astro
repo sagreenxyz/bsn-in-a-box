@@ -14,17 +14,17 @@ export interface Props {
 }
 
 const { title, description } = Astro.props;
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
-  { href: `${base}`, label: 'Dashboard', icon: '⊞' },
-  { href: `${base}progress`, label: 'Progress', icon: '◎' },
-  { href: `${base}concepts`, label: 'Concepts', icon: '⬡' },
-  { href: `${base}patients`, label: 'Patients', icon: '♡' },
-  { href: `${base}tools`, label: 'Tools', icon: '⚙' },
-  { href: `${base}reference`, label: 'Reference', icon: '☰' },
-  { href: `${base}settings`, label: 'Settings', icon: '⊙' },
+  { href: `${base}/`, label: 'Dashboard', icon: '⊞' },
+  { href: `${base}/progress`, label: 'Progress', icon: '◎' },
+  { href: `${base}/concepts`, label: 'Concepts', icon: '⬡' },
+  { href: `${base}/patients`, label: 'Patients', icon: '♡' },
+  { href: `${base}/tools`, label: 'Tools', icon: '⚙' },
+  { href: `${base}/reference`, label: 'Reference', icon: '☰' },
+  { href: `${base}/settings`, label: 'Settings', icon: '⊙' },
 ];
 
 /**
@@ -32,8 +32,8 @@ const navLinks = [
  * The dashboard link is only active on the exact root path.
  */
 function isActive(href: string): boolean {
-  if (href === `${base}` || href === `${base}/`) {
-    return currentPath === base || currentPath === `${base}/`;
+  if (href === `${base}/`) {
+    return currentPath === `${base}/` || currentPath === base;
   }
   return currentPath.startsWith(href);
 }
@@ -48,7 +48,7 @@ function isActive(href: string): boolean {
     <div class="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-3">
       <!-- Brand -->
       <a
-        href={base}
+        href={`${base}/`}
         class="flex items-center gap-2 text-teal-400 font-serif text-lg font-bold hover:text-teal-300 transition-colors min-h-[44px]"
         aria-label="BSN in a Box — Home"
       >

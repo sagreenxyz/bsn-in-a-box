@@ -8,7 +8,7 @@
  */
 import DashboardLayout from '../../layouts/DashboardLayout.astro';
 
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const concepts = [
   { id: 'oxygenation', description: 'The process of supplying and utilizing oxygen at the cellular level, from airway patency to tissue oxygenation.' },
@@ -66,7 +66,7 @@ const concepts = [
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
     {concepts.map((concept) => (
       <a
-        href={`${base}concepts/${concept.id}`}
+        href={`${base}/concepts/${concept.id}`}
         class="rounded-lg border border-slate-700 bg-slate-900 p-4 hover:border-teal-700 hover:bg-slate-800 transition-colors block"
       >
         <h2 class="font-medium text-teal-300 capitalize mb-1">
