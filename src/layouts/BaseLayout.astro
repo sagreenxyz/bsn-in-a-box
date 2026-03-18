@@ -6,6 +6,8 @@
  * font includes, global CSS, PWA manifest link, and the skip-to-content
  * accessibility link. All other layouts extend this one.
  */
+import '../styles/global.css';
+
 export interface Props {
   /** Page title — appended with "BSN in a Box" automatically. */
   title: string;
@@ -47,8 +49,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/png" sizes="192x192" href={`${base}icons/icon-192.png`} />
     <link rel="apple-touch-icon" href={`${base}icons/icon-192.png`} />
 
-    <!-- Global CSS (includes @font-face declarations and Tailwind) -->
-    <link rel="stylesheet" href={`${base}styles/global.css`} />
   </head>
   <body class="bg-navy text-slate-100 font-sans min-h-screen">
     <!-- Skip-to-content for keyboard/screen reader users -->
