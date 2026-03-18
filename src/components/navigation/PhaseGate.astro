@@ -1,0 +1,237 @@
+---
+/**
+ * PhaseGate.astro
+ *
+ * A gating component that controls access to phase and module content based on
+ * the student's progress in the progressStore. When content is locked, it renders
+ * a carefully designed locked state showing exactly what the student must achieve
+ * to unlock it — including their current gateway score and how far they are from
+ * the threshold. Locked content titles and learning objectives remain visible to
+ * maintain forward motivation.
+ *
+ * Props:
+ *   phase - The curriculum phase number (1–4) this content belongs to.
+ *   moduleId - Optional specific module ID to check prerequisite unlock status.
+ *   title - Display title shown in locked state.
+ *   gatewayPassThreshold - The pass threshold (76 or 80) for the preceding gateway.
+ */
+
+export interface Props {
+  phase: 1 | 2 | 3 | 4;
+  moduleId?: string;
+  title: string;
+  gatewayPassThreshold?: 76 | 80;
+}
+
+const { phase, moduleId, title, gatewayPassThreshold = 76 } = Astro.props;
+
+// Phase gate check is performed client-side via the injected script below.
+// The component renders the locked state initially and reveals content when
+// the client confirms the gate is passed.
+const isPhase1 = phase === 1;
+const priorPhase = phase - 1;
+---
+
+<div
+  class="phase-gate-wrapper"
+  data-phase={phase}
+  data-module-id={moduleId ?? ''}
+  data-threshold={gatewayPassThreshold}
+>
+  {/* Locked state — always rendered server-side, hidden by JS if unlocked */}
+  <div class="phase-gate-locked" id={`gate-locked-${moduleId ?? `phase-${phase}`}`}>
+    <div class="mx-auto max-w-2xl rounded-2xl border border-gold-400/30 bg-navy-900 p-8 text-center shadow-xl">
+      {/* Lock icon */}
+      <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-navy-800 text-gold-400">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+
+      <h2 class="mb-2 font-display text-2xl font-bold text-white">{title}</h2>
+
+      {isPhase1 ? (
+        <p class="mt-4 text-slate-400">
+          Phase 1 is always unlocked. This content should be accessible. If you are seeing
+          this message, please refresh the page.
+        </p>
+      ) : (
+        <div>
+          <p class="mt-3 text-slate-300">
+            This content is locked until you complete Phase {priorPhase} and pass its
+            gateway exam with a score of at least{' '}
+            <span class="font-semibold text-gold-400">{gatewayPassThreshold}%</span>.
+          </p>
+
+          {/* Dynamic score display populated by client-side script */}
+          <div id={`gate-score-${moduleId ?? `phase-${phase}`}`} class="mt-6 hidden">
+            <div class="rounded-xl bg-navy-800 p-5">
+              <p class="mb-1 text-sm font-medium uppercase tracking-wider text-slate-400">
+                Your Phase {priorPhase} Gateway Score
+              </p>
+              <div class="flex items-end justify-center gap-2">
+                <span
+                  id={`gate-score-value-${moduleId ?? `phase-${phase}`}`}
+                  class="text-5xl font-bold text-teal-400"
+                >
+                  —
+                </span>
+                <span class="mb-1 text-xl text-slate-400">/ {gatewayPassThreshold}% needed</span>
+              </div>
+
+              {/* Progress bar toward threshold */}
+              <div class="mt-4 h-3 overflow-hidden rounded-full bg-navy-700">
+                <div
+                  id={`gate-progress-bar-${moduleId ?? `phase-${phase}`}`}
+                  class="h-full rounded-full bg-teal-500 transition-all duration-700"
+                  style="width: 0%"
+                  role="progressbar"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow="0"
+                  aria-label={`Gateway progress toward ${gatewayPassThreshold}% threshold`}
+                ></div>
+              </div>
+
+              <p
+                id={`gate-gap-text-${moduleId ?? `phase-${phase}`}`}
+                class="mt-3 text-sm text-slate-400"
+              >
+              </p>
+            </div>
+
+            <div class="mt-6 rounded-xl bg-navy-800 p-5 text-left">
+              <p class="mb-2 font-semibold text-white">To unlock this content:</p>
+              <ol class="space-y-2 text-slate-300">
+                <li class="flex items-start gap-2">
+                  <span class="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-teal-500/20 text-xs font-bold text-teal-400">1</span>
+                  Complete all modules in Phase {priorPhase}.
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-teal-500/20 text-xs font-bold text-teal-400">2</span>
+                  Pass the Phase {priorPhase} Gateway Exam with at least {gatewayPassThreshold}%.
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-teal-500/20 text-xs font-bold text-teal-400">3</span>
+                  Return here — Phase {phase} will unlock automatically.
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          {/* Message shown when no attempt has been made yet */}
+          <div id={`gate-no-attempt-${moduleId ?? `phase-${phase}`}`} class="mt-6">
+            <p class="text-slate-400">
+              You have not yet attempted the Phase {priorPhase} Gateway Exam.
+            </p>
+            <a
+              href={`/phase/${priorPhase}`}
+              class="mt-4 inline-block rounded-lg bg-teal-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 focus:ring-offset-navy-900"
+            >
+              Go to Phase {priorPhase} →
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+
+  {/* Unlocked content slot — hidden until JS confirms access */}
+  <div class="phase-gate-content hidden" id={`gate-content-${moduleId ?? `phase-${phase}`}`}>
+    <slot />
+  </div>
+</div>
+
+<script>
+  import { getProgress, isPhaseUnlocked, isModuleUnlocked } from '../../lib/progressStore';
+
+  /**
+   * Evaluates all phase gates on the page and either reveals content or
+   * populates the locked state with the student's actual score data.
+   */
+  function evaluateGates() {
+    const gates = document.querySelectorAll<HTMLElement>('.phase-gate-wrapper');
+
+    gates.forEach((gate) => {
+      const phase = parseInt(gate.dataset.phase ?? '1', 10) as 1 | 2 | 3 | 4;
+      const moduleId = gate.dataset.moduleId || null;
+      const threshold = parseInt(gate.dataset.threshold ?? '76', 10);
+      const gateKey = moduleId || `phase-${phase}`;
+
+      const lockedEl = document.getElementById(`gate-locked-${gateKey}`);
+      const contentEl = document.getElementById(`gate-content-${gateKey}`);
+
+      if (!lockedEl || !contentEl) return;
+
+      // Determine if content should be accessible
+      let isUnlocked = false;
+
+      if (phase === 1) {
+        // Phase 1 is always unlocked
+        isUnlocked = true;
+      } else if (moduleId) {
+        // Check module-level prerequisite gate
+        isUnlocked = isModuleUnlocked(moduleId);
+      } else {
+        // Check phase-level gate
+        isUnlocked = isPhaseUnlocked(phase);
+      }
+
+      if (isUnlocked) {
+        lockedEl.classList.add('hidden');
+        contentEl.classList.remove('hidden');
+      } else {
+        // Show locked state with score data
+        lockedEl.classList.remove('hidden');
+        contentEl.classList.add('hidden');
+
+        if (phase > 1) {
+          const priorPhase = phase - 1;
+          const progress = getProgress();
+          const priorPhaseState = progress.phases[String(priorPhase)];
+          const gatewayScore = priorPhaseState?.gatewayScore ?? null;
+
+          const scoreContainer = document.getElementById(`gate-score-${gateKey}`);
+          const noAttemptContainer = document.getElementById(`gate-no-attempt-${gateKey}`);
+          const scoreValueEl = document.getElementById(`gate-score-value-${gateKey}`);
+          const progressBarEl = document.getElementById(`gate-progress-bar-${gateKey}`) as HTMLElement | null;
+          const gapTextEl = document.getElementById(`gate-gap-text-${gateKey}`);
+
+          if (gatewayScore !== null) {
+            // Student has attempted the gateway — show score and gap
+            if (noAttemptContainer) noAttemptContainer.classList.add('hidden');
+            if (scoreContainer) scoreContainer.classList.remove('hidden');
+
+            const scorePercent = Math.round(gatewayScore * 100);
+            const barWidth = Math.min((scorePercent / threshold) * 100, 100);
+            const gap = threshold - scorePercent;
+
+            if (scoreValueEl) scoreValueEl.textContent = `${scorePercent}%`;
+            if (progressBarEl) {
+              progressBarEl.style.width = `${barWidth}%`;
+              progressBarEl.setAttribute('aria-valuenow', String(scorePercent));
+            }
+            if (gapTextEl) {
+              gapTextEl.textContent =
+                gap > 0
+                  ? `You need ${gap} more percentage point${gap === 1 ? '' : 's'} to unlock Phase ${phase}.`
+                  : 'You have passed the threshold — refresh to check your unlock status.';
+            }
+          } else {
+            // No attempt yet
+            if (noAttemptContainer) noAttemptContainer.classList.remove('hidden');
+            if (scoreContainer) scoreContainer.classList.add('hidden');
+          }
+        }
+      }
+    });
+  }
+
+  // Run on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', evaluateGates);
+  } else {
+    evaluateGates();
+  }
+</script>

@@ -1,0 +1,52 @@
+{
+  "moduleId": "p1-d1-u1-m01",
+  "title": "The Discipline of Nursing — Knowledge Check",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "stem": "A nursing student is beginning clinical rotations and asks their preceptor why nursing is described as a 'discipline' rather than just a profession or occupation. Which response best captures what distinguishes nursing as a discipline?",
+      "options": [
+        { "id": "a", "text": "Nursing is a discipline because it requires licensure and has a defined scope of practice regulated by state law." },
+        { "id": "b", "text": "Nursing is a discipline because it has a distinct body of knowledge, a set of theoretical frameworks, and a unique way of understanding and responding to human health experiences that is irreducible to what other professions do." },
+        { "id": "c", "text": "Nursing is a discipline because its practitioners hold university degrees and complete clinical training programs." },
+        { "id": "d", "text": "Nursing is a discipline because it is governed by the ANA and has published standards of practice." }
+      ],
+      "correctAnswers": ["b"],
+      "rationale": "A discipline is defined not by its regulatory structure or credentialing requirements but by its distinct theoretical foundations, characteristic questions, and unique perspective on its subject matter. Nursing's disciplinary identity is grounded in the metaparadigm — person, health, environment, and nursing — which constitutes a way of seeing patients and health that is genuinely different from medicine's biomedical lens. A discipline has its own body of knowledge, generated through nursing science and organized through nursing theory, that cannot be reduced to what other disciplines know. Options A, C, and D describe features that are true of many professions and occupations and do not capture what makes nursing specifically a discipline.",
+      "conceptTags": ["ethics", "evidence-based-practice"],
+      "nclex_category": "Health Promotion and Maintenance"
+    },
+    {
+      "id": "q2",
+      "type": "multiple-response",
+      "stem": "Marcus Webb, 24 years old, has just been diagnosed with Type 1 diabetes mellitus. He lives alone, works part-time, and has no health insurance. Which of the following elements of Marcus's situation would nursing's metaparadigm direct the nurse to assess? Select all that apply.",
+      "options": [
+        { "id": "a", "text": "His blood glucose level and hemoglobin A1c value." },
+        { "id": "b", "text": "His understanding of what it means to have Type 1 diabetes and his feelings about the diagnosis." },
+        { "id": "c", "text": "His living situation, social support, and access to food and medications." },
+        { "id": "d", "text": "His cultural background and whether his values and beliefs will shape his response to his diagnosis." },
+        { "id": "e", "text": "Only the immediate physiological management priorities — insulin initiation and glucose monitoring." }
+      ],
+      "correctAnswers": ["a", "b", "c", "d"],
+      "rationale": "Nursing's metaparadigm directs the nurse's attention to the whole person across all four lenses — person (including Marcus's psychological response and self-concept), health (including not just his glucose values but his functional capacity and well-being), environment (including his living situation, food access, and lack of insurance, all of which directly affect his ability to manage a complex metabolic condition), and nursing itself (what nursing specifically can offer in terms of education, advocacy, and coordination). Option E represents the biomedical reduction that nursing's metaparadigm explicitly resists — treating the disease while ignoring the person who has it.",
+      "conceptTags": ["health-promotion", "communication"],
+      "nclex_category": "Health Promotion and Maintenance"
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "stem": "Patricia Benner's novice-to-expert model describes five stages of clinical skill development. A nursing student who relies heavily on rules and protocols to guide their practice, applies those rules consistently but without the flexibility to recognize when context requires deviation, and does not yet perceive the whole clinical picture is best described as functioning at which stage?",
+      "options": [
+        { "id": "a", "text": "Advanced beginner — recognizing recurring meaningful components but still requiring guidelines." },
+        { "id": "b", "text": "Novice — rule-governed, limited contextual perception, dependent on protocols." },
+        { "id": "c", "text": "Competent — consciously deliberate planning based on analytical analysis of situations." },
+        { "id": "d", "text": "Proficient — perceiving situations as wholes and understanding long-term plans." }
+      ],
+      "correctAnswers": ["b"],
+      "rationale": "Benner's novice stage is characterized by rule-governed behavior in which the practitioner applies context-free rules and protocols consistently but lacks the experiential base to recognize which rules apply to which contexts or to deviate from rules when the clinical situation warrants it. The novice focuses on discrete features of a situation rather than perceiving the gestalt — the whole clinical picture that experienced nurses read rapidly and intuitively. The advanced beginner has begun to recognize recurring meaningful aspects of real situations but still requires guidance. The competent nurse demonstrates conscious, deliberate analytical planning and has developed a sense of long-term goals. The proficient nurse perceives whole situations rather than isolated aspects.",
+      "conceptTags": ["evidence-based-practice"],
+      "nclex_category": "Safe and Effective Care Environment"
+    }
+  ]
+}

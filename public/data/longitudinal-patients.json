@@ -1,0 +1,274 @@
+[
+  {
+    "patientId": "marcus-webb",
+    "name": "Marcus Webb",
+    "age": 24,
+    "gender": "Male",
+    "pronouns": "he/him",
+    "ethnicity": "African American",
+    "occupation": "College student (Computer Science, junior); barista part-time",
+    "livingSituation": "Campus housing with one roommate",
+    "insurance": "None — uninsured. Enrolled in student health plan with limited coverage.",
+    "primaryDiagnosis": "Type 1 diabetes mellitus, newly diagnosed",
+    "comorbidities": [],
+    "medications": [
+      "Insulin glargine 20 units SQ at bedtime (newly initiated)",
+      "Insulin lispro per sliding scale before meals (newly initiated)"
+    ],
+    "allergies": ["NKDA"],
+    "familyHistory": "Mother: Type 2 diabetes mellitus. Father: hypertension. Maternal grandmother: deceased from stroke.",
+    "socialHistory": "Non-smoker. Occasional alcohol (2-3 drinks on weekends). Denies recreational drug use. Works 20 hours/week. Reports moderate stress related to academic performance and financial pressures.",
+    "narrative": "Marcus is a bright, self-reliant young man who attributes his initial dismissal of his symptoms to the cultural expectation that young men simply push through discomfort. His diagnosis with Type 1 diabetes has forced him to confront both physical vulnerability and the structural barriers created by his lack of insurance. He is motivated to manage his condition but anxious about the cost of insulin and supplies, and about what the diagnosis means for his future. The student who follows Marcus through the curriculum will come to know him as a person who learns to navigate a complex condition with resilience — and who challenges the healthcare system's failure to provide adequate access for uninsured young adults.",
+    "phaseAppearances": {
+      "1": {
+        "moduleIds": ["p1-d1-u1-m01", "p1-d1-u2-m01"],
+        "clinicalContext": "Initial diagnosis encounter. Health assessment fundamentals. Social determinants of health exploration.",
+        "clinicalStatus": "Newly diagnosed Type 1 DM. Glucose controlled with new insulin regimen. Foot wound healed. Establishing care at a federally qualified health center."
+      },
+      "2": {
+        "moduleIds": [],
+        "clinicalContext": "DKA management and insulin pharmacology. First hospitalization.",
+        "clinicalStatus": "Admitted for DKA following a missed insulin dose during finals week. Responds to treatment. Discharge education reinforced."
+      },
+      "3": {
+        "moduleIds": [],
+        "clinicalContext": "Sepsis secondary to diabetic foot wound.",
+        "clinicalStatus": "Hospitalized with sepsis from diabetic foot infection requiring IV antibiotics. Surgical debridement. Complex wound care. Social work involved for resource navigation."
+      },
+      "4": {
+        "moduleIds": [],
+        "clinicalContext": "Complex discharge planning and community health follow-up.",
+        "clinicalStatus": "Post-sepsis recovery. Complex discharge plan coordinating home health, outpatient endocrinology, and community health worker support. Medicaid eligibility established."
+      }
+    }
+  },
+  {
+    "patientId": "eleanor-vasquez",
+    "name": "Eleanor Vasquez",
+    "age": 67,
+    "gender": "Female",
+    "pronouns": "she/her",
+    "ethnicity": "Latina (Mexican American)",
+    "occupation": "Retired schoolteacher",
+    "livingSituation": "Lives with adult daughter Maria. Widowed.",
+    "insurance": "Medicare Part A and B, with Medicaid as secondary (dual eligible)",
+    "primaryDiagnosis": "Hypertension; Type 2 diabetes mellitus; Chronic kidney disease, stage 3 (eGFR 34 mL/min/1.73m²)",
+    "comorbidities": ["Hyperlipidemia", "Osteoarthritis of bilateral knees"],
+    "medications": [
+      "Lisinopril 40mg PO daily",
+      "Amlodipine 10mg PO daily",
+      "Metformin 1000mg PO twice daily (currently; dose adjustment pending eGFR review)",
+      "Atorvastatin 40mg PO daily",
+      "Furosemide 40mg PO daily",
+      "Aspirin 81mg PO daily"
+    ],
+    "allergies": ["Sulfa drugs — rash"],
+    "familyHistory": "Hypertension in both parents. Mother had a stroke at age 72. Father had Type 2 diabetes.",
+    "socialHistory": "Speaks primarily Spanish; limited English proficiency. Non-smoker. Does not drink alcohol. Diet is traditional Mexican — high in beans, rice, tortillas, with variable vegetable intake. Maria accompanies her to most appointments and serves informally as interpreter, though professional interpreter services are the standard of care.",
+    "narrative": "Eleanor is a warm, quietly dignified woman who raised three children and taught elementary school for 34 years. She is deeply embedded in her community and her Catholic faith. She tends to minimize her symptoms — she grew up in an era and culture in which not complaining was a virtue, and she worries about being a burden to her daughter. Her trajectory through the curriculum illustrates the compounding nature of chronic disease: hypertension and diabetes, individually manageable, interact destructively to accelerate renal decline, and the same medications that control her blood pressure can further compromise her kidneys. The student who follows Eleanor will witness the full arc of progressive CKD — from early-stage management through the complex conversation about dialysis to the profound question of whether aggressive life extension aligns with what Eleanor values.",
+    "phaseAppearances": {
+      "1": {
+        "moduleIds": ["p1-d1-u1-m02", "p1-d2-u1-m01", "p1-d3-u1-m01"],
+        "clinicalContext": "Routine chronic disease management visit. Health history and assessment fundamentals. Medication education.",
+        "clinicalStatus": "Stable hypertension and diabetes. CKD stage 3. Medication list review prompted by declining eGFR."
+      },
+      "2": {
+        "moduleIds": [],
+        "clinicalContext": "Cardiovascular pharmacology and renal medication management.",
+        "clinicalStatus": "eGFR declining to 28. Metformin discontinued. Insulin initiated. Blood pressure optimization. Dietary consultation for CKD diet."
+      },
+      "3": {
+        "moduleIds": [],
+        "clinicalContext": "End-stage renal disease transition and dialysis education.",
+        "clinicalStatus": "eGFR 12. ESRD. Goals of care conversation. Arteriovenous fistula created. Hemodialysis initiated three times weekly. Palliative care consultation offered."
+      },
+      "4": {
+        "moduleIds": [],
+        "clinicalContext": "End-of-life goals of care and leadership in complex family dynamics.",
+        "clinicalStatus": "Requesting hospice evaluation. Family conflict between Maria (who wants aggressive treatment) and Eleanor (who has expressed that she wants comfort-focused care). Ethical consultation involved."
+      }
+    }
+  },
+  {
+    "patientId": "jordan-okafor",
+    "name": "Jordan Okafor",
+    "age": 34,
+    "gender": "Nonbinary",
+    "pronouns": "they/them",
+    "ethnicity": "Nigerian American",
+    "occupation": "Healthcare administrator",
+    "livingSituation": "Lives alone in an apartment. Partner is in a long-distance relationship (different city).",
+    "insurance": "Employer-sponsored commercial insurance — good coverage, low out-of-pocket costs",
+    "primaryDiagnosis": "Generalized anxiety disorder (GAD), well-controlled",
+    "comorbidities": ["Insomnia — recent onset"],
+    "medications": [
+      "Sertraline 100mg PO daily (for GAD, ongoing for 3 years)",
+      "Melatonin 5mg PO at bedtime (OTC, self-initiated)"
+    ],
+    "allergies": ["Penicillin — hives and throat tightening (anaphylaxis risk — note: allergy testing not performed, nature of reaction suggests IgE-mediated)"],
+    "familyHistory": "Father: hypertension. Mother: depression. No other significant family history reported.",
+    "socialHistory": "Non-smoker. Drinks alcohol socially — 1-2 glasses of wine 2-3 times per week. Exercises regularly. Works demanding hours in hospital administration. Reports that their anxiety is well-managed but that the current work environment is increasingly stressful.",
+    "narrative": "Jordan is thoughtful, highly informed about healthcare (as a professional in the field), and acutely aware of how patients with marginalized identities can be dismissed or stereotyped in healthcare encounters. They are initially reticent in clinical encounters, not because they are withholding but because prior experience has taught them to expect that their preferences will not be heard or that their identity will be treated as the primary clinical variable. The student who follows Jordan will encounter the intersection of mental health, identity, and the healthcare system — and will develop the clinical communication skills to create the safety that allows Jordan to engage fully as a partner in their own care.",
+    "phaseAppearances": {
+      "1": {
+        "moduleIds": ["p1-d1-u1-m03"],
+        "clinicalContext": "Routine health maintenance visit. Ethics of autonomy applied to treatment preferences. Therapeutic relationship building.",
+        "clinicalStatus": "Stable GAD on sertraline. Presenting with new insomnia and concerns about proposed benzodiazepine addition. Autonomy conflict explored."
+      },
+      "2": {
+        "moduleIds": [],
+        "clinicalContext": "Psychiatric crisis and inpatient stabilization. Psychiatric pharmacology.",
+        "clinicalStatus": "Voluntary psychiatric inpatient admission for acute anxiety and suicidal ideation (passive, without plan). Medication adjustment. Intensive outpatient referral."
+      },
+      "3": {
+        "moduleIds": [],
+        "clinicalContext": "Postoperative care following laparoscopic appendectomy with wound complication.",
+        "clinicalStatus": "Emergency appendectomy. Wound infection. Complex postoperative course requiring psychiatric and surgical coordination. Discharge planning across specialties."
+      },
+      "4": {
+        "moduleIds": [],
+        "clinicalContext": "Complex care coordination across psychiatric and surgical recovery.",
+        "clinicalStatus": "Recovery phase. Coordination between outpatient psychiatry, primary care, and surgical follow-up. Transition of care planning."
+      }
+    }
+  },
+  {
+    "patientId": "amara-osei",
+    "name": "Amara Osei",
+    "age": 28,
+    "gender": "Female",
+    "pronouns": "she/her",
+    "ethnicity": "Ghanaian (recent immigrant, 4 years in the United States)",
+    "occupation": "Home childcare provider",
+    "livingSituation": "Lives with husband Kwame and 3-year-old daughter. Extended family in Ghana.",
+    "insurance": "Medicaid (pregnancy coverage)",
+    "primaryDiagnosis": "Gestational hypertension, progressing to preeclampsia with severe features at 32 weeks",
+    "comorbidities": ["G2P1 — previous uncomplicated vaginal delivery at term in Ghana"],
+    "medications": [
+      "Prenatal vitamins",
+      "Ferrous sulfate 325mg PO daily (iron deficiency anemia)",
+      "Labetalol 200mg PO twice daily (initiated for gestational hypertension, being titrated)"
+    ],
+    "allergies": ["NKDA"],
+    "familyHistory": "Mother: hypertension. Maternal grandmother: hypertension and stroke.",
+    "socialHistory": "Non-smoker. Does not drink alcohol. Speaks English well. Support system primarily her husband; extended family in Ghana. Reports feeling isolated — limited social connections in the U.S. outside of church. Culturally, has relied on traditional Ghanaian approaches to pregnancy and is skeptical of medical interventions she does not understand.",
+    "narrative": "Amara is navigating pregnancy in a healthcare system that is unfamiliar to her, in a country where she does not yet have deep roots. She is intelligent and engaged — she asks good questions when she trusts the person she is speaking with — but she has had experiences in which her concerns were dismissed, which has made her appropriately cautious. Her preeclampsia trajectory will take the student through the most acutely dangerous peripartum complication short of hemorrhage, and the coordination of her emergency cesarean delivery and her preterm newborn Kofi's NICU care illustrates the simultaneous multi-patient nursing that maternal-newborn nursing requires.",
+    "phaseAppearances": {
+      "1": {
+        "moduleIds": ["p1-d2-u1-m04"],
+        "clinicalContext": "Antepartum assessment. Physical examination fundamentals applied to pregnancy. Preeclampsia recognition.",
+        "clinicalStatus": "32 weeks gestation with new-onset headache, visual changes, and facial edema. Blood pressure 162/108. Preeclampsia with severe features identified. Emergency admission."
+      },
+      "2": {
+        "moduleIds": [],
+        "clinicalContext": "Magnesium sulfate pharmacology. Fetal monitoring interpretation.",
+        "clinicalStatus": "Hospitalized for expectant management of preeclampsia with severe features. Magnesium sulfate infusion ongoing. Continuous fetal monitoring. Betamethasone for fetal lung maturity."
+      },
+      "3": {
+        "moduleIds": [],
+        "clinicalContext": "Emergency cesarean delivery. Postpartum hemorrhage. Neonatal resuscitation.",
+        "clinicalStatus": "Emergency cesarean at 33 weeks for worsening preeclampsia with non-reassuring fetal heart rate pattern. Estimated blood loss 1200 mL — postpartum hemorrhage. Kofi Osei born at 33+2 weeks, NICU admission."
+      },
+      "4": {
+        "moduleIds": [],
+        "clinicalContext": "Postpartum recovery and NICU family support. Community follow-up for hypertension.",
+        "clinicalStatus": "Postpartum recovery with ongoing antihypertensive therapy — postpartum hypertension frequently persists and must be managed. Kofi in NICU for 4 weeks. Transition to community care."
+      }
+    }
+  },
+  {
+    "patientId": "thomas-nguyen",
+    "name": "Thomas Nguyen",
+    "age": 8,
+    "gender": "Male",
+    "pronouns": "he/him",
+    "ethnicity": "Vietnamese American",
+    "occupation": "Third-grade student",
+    "livingSituation": "Lives with parents and maternal grandparents in a multigenerational household. Father works in restaurant management; mother works part-time as a seamstress.",
+    "insurance": "CHIP (Children's Health Insurance Program)",
+    "primaryDiagnosis": "Moderate persistent asthma — three hospitalizations in the past 12 months",
+    "comorbidities": ["Allergic rhinitis", "Eczema"],
+    "medications": [
+      "Fluticasone propionate 110mcg (2 puffs) inhaled twice daily — controller",
+      "Albuterol 2.5mg via nebulizer or 2 puffs MDI as needed — rescue",
+      "Cetirizine 5mg PO daily — for allergic rhinitis"
+    ],
+    "allergies": ["Shellfish — hives and vomiting. Pollen and dust mite — allergic rhinitis and asthma trigger."],
+    "familyHistory": "Mother: asthma, mild intermittent. Maternal grandfather: COPD (non-smoker — occupation-related exposure in Vietnam). Father: no significant history.",
+    "socialHistory": "Lives in older apartment housing with known dust mite and cockroach allergen exposure — a significant asthma trigger. Family does not smoke, but secondhand smoke from neighbors is a concern. Mother reports that Thomas misses school frequently due to asthma-related illness. Thomas loves video games and would rather play than do his prescribed daily peak flow monitoring. Grandparents provide much of his daytime care and speak limited English.",
+    "narrative": "Thomas's asthma is poorly controlled despite appropriate medications, primarily because of persistent environmental trigger exposure in his housing environment that the family has limited ability to modify, and because adherence to the controller medication (the daily inhaled corticosteroid) is inconsistent. His case illustrates the intersection of pediatric development, family dynamics, cultural communication, and the social determinants of health in a pediatric chronic disease context. The student who follows Thomas will develop the skills to assess a child, communicate with a child's family across linguistic and cultural differences, apply pediatric dosing principles, and engage in community-based asthma management.",
+    "phaseAppearances": {
+      "1": {
+        "moduleIds": ["p1-d2-u1-m01", "p1-d3-u1-m02"],
+        "clinicalContext": "Pediatric assessment differences. Weight-based dosing calculation.",
+        "clinicalStatus": "Admitted for moderate asthma exacerbation. Responds to nebulized albuterol and IV methylprednisolone. Discharge with reinforced asthma action plan."
+      },
+      "2": {
+        "moduleIds": [],
+        "clinicalContext": "Respiratory pharmacology in pediatric dosing.",
+        "clinicalStatus": "Outpatient pulmonology follow-up. Controller medication step-up therapy. Allergy testing and immunotherapy discussion."
+      },
+      "3": {
+        "moduleIds": [],
+        "clinicalContext": "Status asthmaticus — PICU-level care.",
+        "clinicalStatus": "Admitted to PICU for status asthmaticus not responding to standard therapy. Heliox trial. IV magnesium sulfate. Consideration of intubation. Ultimate recovery without intubation."
+      },
+      "4": {
+        "moduleIds": [],
+        "clinicalContext": "School nursing and community-based asthma management.",
+        "clinicalStatus": "Stable after PICU admission. School nurse coordination. Individualized health plan. Home environmental assessment and remediation support."
+      }
+    }
+  },
+  {
+    "patientId": "ruth-abramowitz",
+    "name": "Ruth Abramowitz",
+    "age": 81,
+    "gender": "Female",
+    "pronouns": "she/her",
+    "ethnicity": "Jewish American",
+    "occupation": "Retired physician (internist, retired 12 years ago)",
+    "livingSituation": "Lives alone in an assisted living facility. Adult daughter Sarah (accountant) lives 30 minutes away; adult son David (lives in another state) is less involved in her care.",
+    "insurance": "Medicare Part A, B, and D; supplemental Medigap policy",
+    "primaryDiagnosis": "Moderate Alzheimer's dementia (MMSE 18/30 on good days, lower on bad days); Heart failure with reduced ejection fraction (HFrEF, EF 35%); Osteoporosis",
+    "comorbidities": ["Hip fracture (right) — six weeks post-ORIF, currently in rehabilitation", "Hypertension", "Atrial fibrillation (rate-controlled)", "Anemia of chronic disease", "Chronic pain (osteoarthritis)"],
+    "medications": [
+      "Donepezil 10mg PO at bedtime (Alzheimer's disease)",
+      "Carvedilol 12.5mg PO twice daily (HFrEF and rate control in AFib)",
+      "Lisinopril 5mg PO daily (HFrEF)",
+      "Furosemide 40mg PO daily (HFrEF — volume management)",
+      "Spironolactone 25mg PO daily (HFrEF — mortality reduction)",
+      "Apixaban 5mg PO twice daily (AFib — stroke prevention)",
+      "Calcium carbonate 600mg PO twice daily (osteoporosis prevention)",
+      "Cholecalciferol (Vitamin D3) 1000 IU PO daily",
+      "Acetaminophen 650mg PO every 6 hours (chronic pain — scheduled)",
+      "Mirtazapine 7.5mg PO at bedtime (depression and appetite stimulation)"
+    ],
+    "allergies": ["Aspirin — GI bleeding (documented — on anticoagulation; aspirin contraindicated)", "Morphine — confusion and severe nausea"],
+    "familyHistory": "Parents deceased — father from MI at 74, mother from stroke at 80. Older brother: deceased from pancreatic cancer.",
+    "socialHistory": "Former internist — retains significant medical knowledge on good cognitive days, which she uses to advocate for herself and sometimes to challenge clinical recommendations. Can be demanding and direct. Her dementia fluctuates — she is more cognitively intact in the morning after adequate sleep, and becomes more confused in the evening (sundowning). She has strong opinions about her care and about dying with dignity. She completed an advance directive 8 years ago specifying no CPR, no mechanical ventilation, and no artificial nutrition. Her daughter Sarah, who has healthcare proxy authority, disagrees with Ruth's stated wishes and believes her mother 'would want everything done' if she really understood the situation.",
+    "narrative": "Ruth is the most complex patient in this curriculum — medically, ethically, and relationally. She is simultaneously the patient, the former physician who understands exactly what is happening to her, and the person whose autonomy is being contested by the very family member who loves her most. Her trajectory through the curriculum addresses polypharmacy in older adults, the nursing management of multiple concurrent chronic conditions, delirium in the postoperative setting, and ultimately the most challenging leadership and ethical situation in clinical nursing: the goals-of-care conversation in which a patient's clearly expressed wishes conflict with their family's desires and possibly with what the clinical team believes is medically indicated.",
+    "phaseAppearances": {
+      "1": {
+        "moduleIds": ["p1-d1-u3-m01", "p1-d2-u1-m03"],
+        "clinicalContext": "Legal concepts — advance directives, capacity assessment, healthcare proxy conflicts. Pain assessment in dementia.",
+        "clinicalStatus": "Six weeks post-right hip ORIF for fragility fracture. In short-term rehabilitation facility. Developing early delirium. Advance directive conflict with proxy identified."
+      },
+      "2": {
+        "moduleIds": [],
+        "clinicalContext": "Polypharmacy management and geriatric pharmacology.",
+        "clinicalStatus": "Return to assisted living. Medication reconciliation — 10 medications reviewed. Beers Criteria applied. Three medications deprescribed. Pharmacy consultation."
+      },
+      "3": {
+        "moduleIds": [],
+        "clinicalContext": "Post-hip fracture rehabilitation and hospital-acquired delirium.",
+        "clinicalStatus": "Readmission for delirium (hyperactive type). Superimposed UTI identified and treated. Non-pharmacological delirium management. Family conference about escalating care needs."
+      },
+      "4": {
+        "moduleIds": [],
+        "clinicalContext": "Goals of care, ethical decision-making, and leadership in complex family dynamics.",
+        "clinicalStatus": "HFrEF decompensating. Ruth has expressed on multiple occasions that she does not want aggressive life-sustaining treatment. Goals of care conference with Sarah, David, the palliative care team, social work, and nursing leadership. Ethics consultation."
+      }
+    }
+  }
+]
