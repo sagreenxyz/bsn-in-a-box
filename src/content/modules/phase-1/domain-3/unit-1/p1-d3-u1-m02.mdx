@@ -1,0 +1,96 @@
+---
+title: "Dosage Calculations: Foundations"
+moduleId: "p1-d3-u1-m02"
+phase: 1
+domainId: "pharmacology-foundations"
+unitId: "medication-administration"
+sequenceOrder: 2
+prerequisites:
+  - "p1-d3-u1-m01"
+conceptTags:
+  - "safety"
+  - "evidence-based-practice"
+nclex_categories:
+  - "Physiological Integrity"
+  - "Pharmacological and Parenteral Therapies"
+estimatedMinutes: 60
+isThresholdConcept: false
+isSafetyCritical: true
+longitudinalPatientIds:
+  - "thomas-nguyen"
+  - "marcus-webb"
+hasGatewayExam: true
+gatewayPassThreshold: 80
+productiveFailureEnabled: false
+---
+
+import KnowledgeCheck from '../../../../../components/assessment/KnowledgeCheck';
+import ElaborativePrompts from '../../../../../components/learning/ElaborativePrompts';
+import PatientEncounter from '../../../../../components/clinical/PatientEncounter';
+
+## Learning Objectives
+
+Dosage calculation is a safety-critical clinical skill where precision is non-negotiable. By completing this module — and its associated dosage calculator exercises, which require 100% accuracy before you can advance — you will be able to convert between metric units of measure (micrograms, milligrams, grams, milliliters, liters) with fluency and precision, perform basic oral medication calculations using the formula method and ratio-proportion method, calculate weight-based dosing and verify that calculated doses fall within published safe dose ranges, calculate IV flow rates in mL/hour and drops/minute using correct drop factor selection, and interpret medication orders written in standard clinical notation including those using the routes, frequencies, and abbreviations used in clinical practice.
+
+## The Mathematical Foundation: Units and Conversion
+
+Dosage calculation errors occur most commonly not in the calculation itself but in the conversion step that precedes it — when units are confused, conversion factors are misremembered, or decimal points are misplaced. Understanding units of measure and their relationships is prerequisite to performing any dosage calculation correctly.
+
+The metric system — used exclusively in clinical pharmacology — is organized around powers of ten. The three units of mass most commonly used in clinical dosing are the microgram (mcg or µg), the milligram (mg), and the gram (g). Their relationships are: 1 gram = 1,000 milligrams, 1 milligram = 1,000 micrograms. The units of volume used clinically are the milliliter (mL) and the liter (L), with 1 liter equal to 1,000 milliliters.
+
+Decimal placement is the source of the most consequential errors in this system. A dose of 0.5 mg is ten times different from a dose of 5 mg, and one hundred times different from a dose of 50 mg. In clinical notation, a leading zero is always written before a decimal point (0.5 mg, not .5 mg) to prevent the decimal from being missed. A trailing zero is never written after a decimal point in whole number doses (5 mg, not 5.0 mg) to prevent the decimal from being missed and the dose being read as ten times what was intended. These conventions exist because medication errors involving decimal point confusion have killed patients.
+
+## The Formula Method and Ratio-Proportion Method
+
+Two calculation approaches are used for basic oral medication calculations. Both, when applied correctly, produce the same result. The formula method uses:
+
+**Dose desired ÷ Dose on hand × Vehicle = Dose to administer**
+
+Where dose desired is the ordered amount, dose on hand is the concentration of the available medication, and vehicle is the quantity (tablet, mL) in which the dose on hand is supplied.
+
+Consider a worked example: The order reads "Lisinopril 20 mg PO daily." The available tablets are lisinopril 10 mg. Applying the formula: 20 mg ÷ 10 mg × 1 tablet = 2 tablets. This answer must be verified for reasonableness — two tablets of a standard oral medication is a reasonable administration quantity. If a calculation produces an answer of 12 tablets or 0.02 mL, reconsider the setup before proceeding.
+
+The ratio-proportion method sets the known ratio (dose on hand : vehicle) equal to the unknown ratio (dose desired : dose to administer) and solves algebraically. The known ratio is: 10 mg : 1 tablet. The unknown ratio is: 20 mg : X tablets. Cross-multiplying: 10X = 20, so X = 2 tablets. Same answer, different approach. Some nurses find one method more intuitive; the critical principle is that you use one method consistently and verify your answer for reasonableness.
+
+<PatientEncounter client:visible patientId="thomas-nguyen" encounterNumber={1}>
+Thomas Nguyen is an 8-year-old with moderate persistent asthma admitted for an acute exacerbation. He weighs 26 kg. The physician orders albuterol 0.15 mg/kg via nebulizer for the acute bronchospasm. You need to calculate the dose and then verify it against published safe dose range data.
+
+Step 1 — Calculate the dose: 0.15 mg/kg × 26 kg = 3.9 mg. Round to the nearest tenth: 3.9 mg of albuterol.
+
+Step 2 — Verify against safe dose range: The published pediatric dose for acute asthma exacerbation is 0.1 to 0.15 mg/kg per dose, maximum 5 mg. Your calculated dose of 3.9 mg falls within range and is below the maximum. Proceed.
+
+Step 3 — Prepare the dose: Albuterol is available as a 5 mg/mL solution for nebulization. Apply the formula: 3.9 mg ÷ 5 mg × 1 mL = 0.78 mL of albuterol solution, to be diluted to 3 mL total volume with normal saline for nebulization.
+
+This three-step process — calculate, verify, prepare — is the safe dose range verification process required for every pediatric weight-based calculation and recommended for every adult weight-based dose as well. Skipping the verification step is a common source of serious pediatric medication errors.
+</PatientEncounter>
+
+<KnowledgeCheck client:visible moduleId="p1-d3-u1-m02" questionIndex={0} />
+
+## IV Flow Rate Calculations
+
+Intravenous medications and fluids are ordered as a volume to be administered over a defined time period (for example, "1000 mL NS over 8 hours") or as a rate in mL/hour (for example, "Normal saline at 125 mL/hour"). The nurse must be able to convert between these expressions and, for gravity drip systems still used in some settings, to calculate the drops per minute required.
+
+For electronic infusion pumps — the standard of care in most clinical settings — the nurse programs the pump in mL/hour. Converting a volume-over-time order to mL/hour: divide the total volume by the hours. For 1000 mL over 8 hours: 1000 ÷ 8 = 125 mL/hour.
+
+For gravity drip systems using IV tubing, the nurse must also account for the drop factor — the number of drops per milliliter that the specific tubing delivers, which is printed on the tubing packaging and varies between 10 gtt/mL (macrodrip) and 60 gtt/mL (microdrip, used for pediatric patients and very slow infusion rates). The formula for drops per minute is:
+
+**(Volume in mL ÷ Time in minutes) × Drop factor = Drops per minute**
+
+For 1000 mL over 8 hours (480 minutes) with macrodrip tubing (10 gtt/mL): (1000 ÷ 480) × 10 = 20.8, rounded to 21 gtt/min. Counting drops per minute against a clock and adjusting the roller clamp is the gravity drip technique — less common with the widespread availability of infusion pumps but still required in some clinical contexts.
+
+<KnowledgeCheck client:visible moduleId="p1-d3-u1-m02" questionIndex={1} />
+
+## Safe Dose Range Verification in Practice
+
+Safe dose range (SDR) verification is the process of checking that the calculated dose for a specific patient falls within the established therapeutic range for that patient's population, weight, and clinical context. Published SDR data comes from pharmacological references including Lexicomp, Micromedex, and institution-specific clinical pharmacology references that the nurse should know how to access.
+
+For weight-based dosing, the SDR is typically expressed as mg/kg/dose or mg/kg/day with a maximum dose cap. The nurse calculates the patient-specific dose, then checks that the result is within the minimum and maximum of the safe range. A dose below the minimum may be subtherapeutic. A dose above the maximum may be toxic. Either situation requires holding the dose and contacting the prescriber before proceeding.
+
+This verification step is not optional — it is a safety-critical professional responsibility. The fact that a physician ordered a dose does not mean the dose is correct. Prescribing errors occur, and they occur more frequently in high-acuity settings with complex patients. The nurse who verifies safe dose ranges and contacts the prescriber when a dose falls outside range is not second-guessing the physician — they are performing their professional accountability.
+
+<ElaborativePrompts client:visible moduleId="p1-d3-u1-m02" prompts={[
+  "Why is the dosage calculation module the only module in this curriculum that requires 100% accuracy before advancement rather than the standard 76-80% threshold — and what does this tell us about the relationship between mathematical precision and patient safety in nursing?",
+  "Why does decimal point placement in medication dosing carry fatal risk, and what specific clinical conventions prevent decimal-related errors even when transcription or reading errors occur?",
+  "Why must weight-based dose calculations always be verified against published safe dose ranges rather than simply calculated and administered, even when the calculation is mathematically correct?",
+  "Why is the ability to perform dosage calculations manually — without calculator reliance — still a professional competency requirement when calculators are universally available in clinical settings?"
+]} />

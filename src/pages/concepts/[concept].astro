@@ -1,0 +1,243 @@
+---
+/**
+ * [concept].astro — Concept Detail Page
+ *
+ * Renders for each of the 35 core nursing concepts. Shows:
+ *   - Prose definition and clinical significance of the concept
+ *   - All modules across all phases tagged with this concept
+ *   - Student's mastery level for this concept (from progressStore)
+ *   - Link to the relevant flashcard deck filtered to this concept
+ *
+ * Route: /concepts/[concept]
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CONTENT_REGISTRY } from '../../lib/contentRegistry';
+
+export async function getStaticPaths() {
+  // Collect all unique concept tags from the registry
+  const allConcepts = new Set<string>();
+  CONTENT_REGISTRY.forEach((m) => m.conceptTags.forEach((t) => allConcepts.add(t)));
+  return Array.from(allConcepts).map((concept) => ({
+    params: { concept },
+    props: { concept },
+  }));
+}
+
+const { concept } = Astro.props;
+
+// Get all modules tagged with this concept, sorted by phase then sequence
+const taggedModules = CONTENT_REGISTRY
+  .filter((m) => m.conceptTags.includes(concept))
+  .sort((a, b) => a.phase - b.phase || a.sequenceOrder - b.sequenceOrder);
+
+const conceptDisplay = concept.replace(/-/g, ' ');
+
+// Concept definitions (prose descriptions for each concept)
+const CONCEPT_DEFINITIONS: Record<string, { definition: string; clinicalSignificance: string }> = {
+  oxygenation: {
+    definition: "Oxygenation refers to the process by which the body takes in oxygen from the environment and delivers it to the tissues that require it for cellular metabolism. This concept encompasses the anatomical structures and physiological mechanisms of the respiratory and cardiovascular systems working together to ensure that every cell receives adequate oxygen to sustain life.",
+    clinicalSignificance: "Alterations in oxygenation are among the most immediately life-threatening clinical problems a nurse will encounter. The nursing assessment of oxygenation — using respiratory rate, oxygen saturation, breath sounds, skin color, and the patient's subjective experience of breathing — provides early warning of deterioration across virtually every clinical condition."
+  },
+  perfusion: {
+    definition: "Perfusion is the process of delivering oxygen-rich blood to tissues via the cardiovascular system. Adequate perfusion requires sufficient cardiac output, appropriate vascular tone, and blood that can carry and release oxygen to tissues.",
+    clinicalSignificance: "Impaired perfusion — whether from cardiac pump failure, vascular obstruction, or distributive shock — represents an existential threat to tissue and organ function. The nurse who can recognize the early signs of perfusion failure (cool extremities, altered mental status, decreased urine output, falling blood pressure) and initiate appropriate response is saving lives."
+  },
+  ethics: {
+    definition: "Ethics in nursing encompasses the moral principles, values, and frameworks that govern professional conduct and guide nurses in making decisions that affect patient welfare, professional relationships, and the broader health of communities.",
+    clinicalSignificance: "Every nursing action has an ethical dimension. The nurse who understands the four bioethical principles — autonomy, beneficence, nonmaleficence, and justice — and the ANA Code of Ethics is equipped to recognize ethical conflicts, reason through them systematically, and advocate for patients when their interests are threatened."
+  },
+  safety: {
+    definition: "Safety in nursing refers to the prevention of patient harm from the healthcare process itself — harm that is distinct from the harm caused by the underlying disease or injury. The modern patient safety framework understands adverse events as system failures, not individual failures, and designs interventions at the system level.",
+    clinicalSignificance: "Medication errors, falls, healthcare-associated infections, and pressure injuries are among the most common and most preventable patient safety failures in healthcare. The nurse's mastery of safety practices — the medication rights, fall risk assessment, hand hygiene, skin assessment — is not bureaucratic compliance but life-protecting professional behavior."
+  },
+  communication: {
+    definition: "Communication in nursing encompasses the therapeutic, professional, and interprofessional exchange of information that is essential to patient-centered care. It includes verbal and nonverbal therapeutic communication with patients and families, structured professional communication with the healthcare team (SBAR), and health literacy-appropriate patient education.",
+    clinicalSignificance: "Communication failures are the root cause of the majority of preventable adverse events in healthcare. The nurse who communicates clearly, uses structured communication tools, confirms understanding through teach-back, and speaks up when safety is at risk prevents harm that medication and technology cannot."
+  },
+  pain: {
+    definition: "Pain is a subjective, multidimensional experience of actual or potential tissue damage that is defined by the person experiencing it. It encompasses nociceptive pain (from tissue damage), neuropathic pain (from nerve injury or dysfunction), and chronic pain (which involves central sensitization and has a fundamentally different pathophysiology from acute pain).",
+    clinicalSignificance: "Pain is the most common reason people seek healthcare and the symptom nurses most frequently encounter. Undertreated pain causes suffering, impairs healing, increases healthcare utilization, and is distributed inequitably across populations. The nurse's comprehensive pain assessment, combined with multimodal management that includes pharmacological and non-pharmacological approaches, is a core clinical competency with direct patient welfare implications."
+  },
+  'health-promotion': {
+    definition: "Health promotion is the process of enabling people to increase control over and improve their health, encompassing interventions that support healthy behaviors, modify environmental and social determinants of health, and build community capacity for wellness.",
+    clinicalSignificance: "Nursing has always understood health along a continuum from illness through wellness, and health promotion is central to nursing's disciplinary identity. Every patient encounter is an opportunity for health promotion — a brief exercise conversation in an acute care visit, smoking cessation counseling in an emergency department, nutrition assessment in a chronic disease management clinic."
+  },
+  'care-coordination': {
+    definition: "Care coordination is the deliberate organization of patient care activities between two or more participants — including the patient — to facilitate the appropriate delivery of healthcare services. It involves communication, transition planning, and ensuring that care is continuous and comprehensive across settings.",
+    clinicalSignificance: "Fragmented care — the failure of providers and settings to share information, align goals, and hand off patients safely — causes preventable readmissions, medication errors, and patient harm. The nurse is the care coordination hub in most clinical settings, responsible for ensuring that all team members and the patient understand the plan, that transitions are safe, and that nothing falls through the cracks."
+  },
+  leadership: {
+    definition: "Leadership in nursing encompasses the ability to influence others toward achieving shared goals, create healthy work environments, drive quality improvement, and advocate effectively for patients, communities, and the profession itself.",
+    clinicalSignificance: "Every registered nurse is a leader — not only those with formal management titles. The bedside nurse who speaks up when a patient is deteriorating, the charge nurse who addresses unsafe staffing, the staff nurse who implements a quality improvement intervention: all are exercising clinical leadership that directly affects patient outcomes."
+  },
+  collaboration: {
+    definition: "Collaboration in nursing refers to working jointly with patients, families, and interprofessional team members to achieve shared care goals, with each contributor bringing their unique expertise and perspective to the team's collective intelligence.",
+    clinicalSignificance: "Complex patients with multiple comorbidities and care needs cannot be managed by any single profession. The nurse who understands each team member's scope and expertise, communicates effectively across professional boundaries, and manages interprofessional conflict constructively delivers better care than one who operates in professional isolation."
+  },
+  'evidence-based-practice': {
+    definition: "Evidence-based practice (EBP) integrates the best available research evidence with clinical expertise and patient values to make clinical decisions. It requires the skills of formulating clinical questions, searching and critically appraising evidence, applying evidence to individual patient contexts, and evaluating outcomes.",
+    clinicalSignificance: "Clinical practice that is not grounded in evidence causes preventable harm — not through malice but through the persistence of outdated practices that have been superseded by better evidence. The nurse who practices EBP protects patients from interventions that don't work and delivers care that does."
+  },
+};
+
+const conceptData = CONCEPT_DEFINITIONS[concept] ?? {
+  definition: `${conceptDisplay.charAt(0).toUpperCase() + conceptDisplay.slice(1)} is one of the 35 core nursing concepts that threads across all phases of the BSN curriculum. Full definition content is in development.`,
+  clinicalSignificance: `Clinical significance content for the concept of ${conceptDisplay} is in development.`
+};
+---
+
+<BaseLayout
+  title={`${conceptDisplay.charAt(0).toUpperCase() + conceptDisplay.slice(1)} | BSN in a Box`}
+  description={`All modules related to the nursing concept of ${conceptDisplay} across all curriculum phases.`}
+>
+  <main class="mx-auto max-w-5xl px-4 py-10">
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-slate-500">
+      <ol class="flex items-center gap-2">
+        <li><a href="/" class="hover:text-teal-400 transition-colors">Dashboard</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="/concepts" class="hover:text-teal-400 transition-colors">Concepts</a></li>
+        <li aria-hidden="true">/</li>
+        <li class="text-slate-300" aria-current="page">{conceptDisplay}</li>
+      </ol>
+    </nav>
+
+    <!-- Concept header -->
+    <div class="mb-8">
+      <div class="mb-2 inline-flex items-center rounded-full border border-teal-500/30 bg-teal-900/20 px-3 py-1 text-xs font-semibold text-teal-400">
+        Core Nursing Concept
+      </div>
+      <h1 class="font-display text-4xl font-bold text-white capitalize">{conceptDisplay}</h1>
+    </div>
+
+    <!-- Definition -->
+    <section class="mb-8" aria-labelledby="definition-heading">
+      <div class="rounded-2xl border border-navy-700 bg-navy-900 p-6">
+        <h2 id="definition-heading" class="mb-3 font-semibold text-white">Definition</h2>
+        <p class="leading-relaxed text-slate-300">{conceptData.definition}</p>
+        <h3 class="mb-3 mt-5 font-semibold text-white">Clinical Significance</h3>
+        <p class="leading-relaxed text-slate-300">{conceptData.clinicalSignificance}</p>
+      </div>
+    </section>
+
+    <!-- Mastery indicator (client-side) -->
+    <div id="mastery-panel" class="mb-8 hidden rounded-2xl border border-navy-700 bg-navy-900 p-6">
+      <h2 class="mb-3 font-semibold text-white">Your Mastery of {conceptDisplay}</h2>
+      <div class="flex items-center gap-4">
+        <div class="flex-1">
+          <div class="h-3 overflow-hidden rounded-full bg-navy-700">
+            <div id="mastery-bar" class="h-full rounded-full bg-teal-500 transition-all duration-700" style="width: 0%"></div>
+          </div>
+        </div>
+        <span id="mastery-percentage" class="flex-shrink-0 font-bold text-teal-400">0%</span>
+      </div>
+      <p id="mastery-description" class="mt-2 text-sm text-slate-400"></p>
+    </div>
+
+    <!-- Tagged modules by phase -->
+    <section aria-labelledby="modules-heading">
+      <h2 id="modules-heading" class="mb-4 font-display text-2xl font-bold text-white">
+        Modules Tagged with This Concept ({taggedModules.length})
+      </h2>
+
+      {[1, 2, 3, 4].map((phase) => {
+        const phaseModules = taggedModules.filter((m) => m.phase === phase);
+        if (phaseModules.length === 0) return null;
+        return (
+          <div class="mb-6">
+            <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-400">
+              Phase {phase}
+            </h3>
+            <div class="space-y-2">
+              {phaseModules.map((m) => (
+                <a
+                  href={`/phase/${m.phase}/${m.domainId}/${m.unitId}/${m.moduleId}`}
+                  class="module-link flex items-center gap-3 rounded-xl border border-navy-700 bg-navy-900 px-4 py-3 text-sm text-slate-300 transition-colors hover:border-teal-500/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  data-module-id={m.moduleId}
+                >
+                  <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-navy-700 text-xs">
+                    {m.sequenceOrder}
+                  </span>
+                  <span class="flex-1">{m.title}</span>
+                  {m.isThresholdConcept && <span class="text-gold-400 text-xs">★ Threshold</span>}
+                  {m.isSafetyCritical && <span class="text-crimson-400 text-xs">⚠ Safety</span>}
+                  <span class="status-indicator text-xs text-slate-500 flex-shrink-0"></span>
+                </a>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </section>
+
+    <!-- Link to flashcard deck -->
+    <div class="mt-8 rounded-2xl border border-gold-400/20 bg-gold-900/10 p-6">
+      <h2 class="mb-2 font-semibold text-gold-400">Flashcards for This Concept</h2>
+      <p class="mb-4 text-sm text-slate-300">
+        The flashcard engine has a deck filtered to the concept of {conceptDisplay}. Studying these flashcards applies spaced repetition specifically to the clinical facts, mechanisms, and nursing actions associated with this concept.
+      </p>
+      <a
+        href="/tools#flashcards"
+        class="inline-flex items-center gap-2 rounded-lg bg-gold-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-gold-500 focus:outline-none focus:ring-2 focus:ring-gold-400 min-h-[44px]"
+      >
+        Open Flashcard Engine →
+      </a>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  import { getProgress } from '../../lib/progressStore';
+  import { CONTENT_REGISTRY } from '../../lib/contentRegistry';
+
+  // Get concept from URL
+  const conceptFromUrl = window.location.pathname.split('/').pop() ?? '';
+
+  // Calculate mastery level for this concept
+  const progress = getProgress();
+  const conceptMastery = progress.conceptMastery?.[conceptFromUrl];
+
+  const masteryPanel = document.getElementById('mastery-panel');
+  const masteryBar = document.getElementById('mastery-bar');
+  const masteryPercentage = document.getElementById('mastery-percentage');
+  const masteryDescription = document.getElementById('mastery-description');
+
+  if (conceptMastery && masteryPanel) {
+    const { score, modulesEncountered, totalModules } = conceptMastery;
+    const displayScore = Math.round((score ?? 0) * 100);
+    masteryPanel.classList.remove('hidden');
+    if (masteryBar) masteryBar.style.width = `${displayScore}%`;
+    if (masteryPercentage) masteryPercentage.textContent = `${displayScore}%`;
+    if (masteryDescription) {
+      masteryDescription.textContent = `Based on ${modulesEncountered ?? 0} of ${totalModules ?? 0} tagged modules completed.`;
+    }
+  }
+
+  // Update module status indicators
+  const moduleLinks = document.querySelectorAll<HTMLElement>('.module-link');
+  moduleLinks.forEach((link) => {
+    const moduleId = link.dataset.moduleId ?? '';
+    const indicator = link.querySelector('.status-indicator');
+    if (!indicator) return;
+
+    // Find module in progress
+    let status = 'not_started';
+    for (const [phaseKey, phaseState] of Object.entries(progress.phases)) {
+      for (const [domainKey, domainState] of Object.entries(phaseState.domains ?? {})) {
+        for (const [unitKey, unitState] of Object.entries((domainState as any).units ?? {})) {
+          const mod = (unitState as any).modules?.[moduleId];
+          if (mod) status = mod.status;
+        }
+      }
+    }
+
+    if (status === 'completed') {
+      indicator.textContent = '✓ Done';
+      indicator.className = 'status-indicator text-xs text-teal-400 flex-shrink-0';
+    } else if (status === 'in_progress') {
+      indicator.textContent = '▶ In Progress';
+      indicator.className = 'status-indicator text-xs text-slate-400 flex-shrink-0';
+    }
+  });
+</script>

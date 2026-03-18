@@ -1,0 +1,26 @@
+---
+/**
+ * tools/flashcards.astro
+ * Standalone page for the SM-2 spaced repetition FlashcardEngine.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import FlashcardEngine from '../../components/learning/FlashcardEngine';
+---
+
+<ToolLayout
+  title="Flashcard System"
+  description="Spaced repetition flashcards using the SM-2 algorithm. Rate your recall after each card and the system schedules your next review automatically."
+>
+  <div class="max-w-3xl mx-auto">
+    <div class="mb-6">
+      <h1 class="font-display text-3xl font-bold text-white mb-2">Flashcard System</h1>
+      <p class="text-slate-400 leading-relaxed">
+        Cards are scheduled using the SM-2 algorithm — the same algorithm behind Anki.
+        Rate your recall honestly (0–5) after each card. Cards rated 0–2 will reappear
+        soon; cards rated 3–5 are scheduled further out. The goal is not to memorize,
+        but to force retrieval — the act of trying to recall strengthens long-term memory.
+      </p>
+    </div>
+    <FlashcardEngine client:load maxCardsPerSession={20} />
+  </div>
+</ToolLayout>

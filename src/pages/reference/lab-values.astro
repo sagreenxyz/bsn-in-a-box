@@ -1,0 +1,15 @@
+---
+/**
+ * reference/lab-values.astro
+ * Full lab value reference page using the LabValueReference React component.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import LabValueReference from '../../components/learning/LabValueReference';
+---
+
+<ToolLayout
+  title="Lab Values Reference"
+  description="Clinical lab values with normal ranges, panic values, causes of abnormality, and nursing actions. All data loaded locally from bundled JSON."
+>
+  <LabValueReference client:load />
+</ToolLayout>

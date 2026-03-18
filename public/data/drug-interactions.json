@@ -1,0 +1,92 @@
+[
+  {
+    "id": "drug-drug-001",
+    "drug1": "Warfarin",
+    "drug2": "Aspirin",
+    "severity": "major",
+    "mechanism": "Additive anticoagulant and antiplatelet effects; aspirin also displaces warfarin from plasma protein binding sites, increasing free warfarin concentration.",
+    "clinicalEffect": "Significantly increased risk of bleeding, including GI hemorrhage and intracranial bleeding.",
+    "nursingAction": "Avoid combination unless specifically indicated (e.g., mechanical heart valve). If used together, monitor INR closely and assess for bleeding signs: bruising, epistaxis, dark/tarry stools, hematuria. Educate patient on bleeding precautions."
+  },
+  {
+    "id": "drug-drug-002",
+    "drug1": "Metformin",
+    "drug2": "Iodinated contrast media",
+    "severity": "major",
+    "mechanism": "Contrast media can cause acute kidney injury, which impairs metformin excretion. Accumulation of metformin can lead to lactic acidosis.",
+    "clinicalEffect": "Risk of metformin-induced lactic acidosis following contrast exposure.",
+    "nursingAction": "Hold metformin 48 hours before and after contrast administration. Ensure creatinine is checked before restarting. Collaborate with provider and radiology team."
+  },
+  {
+    "id": "drug-drug-003",
+    "drug1": "Lisinopril",
+    "drug2": "Potassium supplements",
+    "severity": "major",
+    "mechanism": "ACE inhibitors reduce aldosterone production, decreasing urinary potassium excretion. Adding exogenous potassium can cause hyperkalemia.",
+    "clinicalEffect": "Hyperkalemia — risk of cardiac dysrhythmia, muscle weakness, paralysis.",
+    "nursingAction": "Monitor serum potassium regularly. Hold potassium supplement if K+ > 5.0 mEq/L and notify provider. Review diet for high-potassium foods. Monitor ECG changes (peaked T waves, widened QRS)."
+  },
+  {
+    "id": "drug-drug-004",
+    "drug1": "Digoxin",
+    "drug2": "Furosemide",
+    "severity": "major",
+    "mechanism": "Furosemide causes potassium and magnesium wasting. Hypokalemia sensitizes the myocardium to digoxin, dramatically lowering the toxic threshold.",
+    "clinicalEffect": "Digoxin toxicity at therapeutic digoxin levels when hypokalemia is present. Manifestations: bradycardia, heart block, nausea, yellow-green visual halos.",
+    "nursingAction": "Monitor K+ and Mg2+ levels closely. Replace electrolytes as ordered. Monitor apical pulse for 1 full minute before digoxin administration — hold if <60 bpm. Know digoxin toxic vs therapeutic levels (therapeutic: 0.5–2.0 ng/mL)."
+  },
+  {
+    "id": "drug-drug-005",
+    "drug1": "SSRIs (e.g., sertraline, fluoxetine)",
+    "drug2": "Tramadol",
+    "severity": "major",
+    "mechanism": "Both drugs increase serotonergic activity. Tramadol inhibits serotonin reuptake and stimulates serotonin release. Combined use can trigger serotonin syndrome.",
+    "clinicalEffect": "Serotonin syndrome: hyperthermia, agitation, tremor, hyperreflexia, diaphoresis, diarrhea — can progress to rhabdomyolysis, DIC, and death.",
+    "nursingAction": "Avoid combination. If unavoidable, monitor for serotonin syndrome symptoms. Use lowest effective doses. Know that symptom onset is typically within 6–24 hours of the precipitating dose. Treatment includes cyproheptadine and supportive care."
+  },
+  {
+    "id": "drug-drug-006",
+    "drug1": "Metronidazole (Flagyl)",
+    "drug2": "Alcohol",
+    "severity": "major",
+    "mechanism": "Metronidazole inhibits acetaldehyde dehydrogenase, causing accumulation of acetaldehyde when alcohol is consumed — a disulfiram-like reaction.",
+    "clinicalEffect": "Nausea, vomiting, flushing, tachycardia, hypotension, headache, anxiety.",
+    "nursingAction": "Instruct patient to avoid ALL alcohol (including liquid medications, mouthwash) for 48–72 hours AFTER completing metronidazole. This is a patient education priority."
+  },
+  {
+    "id": "drug-drug-007",
+    "drug1": "MAO inhibitors",
+    "drug2": "Meperidine (Demerol)",
+    "severity": "contraindicated",
+    "mechanism": "MAO inhibitors prevent breakdown of serotonin and catecholamines. Meperidine increases serotonin activity. Combined effect can be catastrophic — serotonin syndrome AND/OR hyperpyrexia.",
+    "clinicalEffect": "Potentially fatal serotonin syndrome: hyperthermia (>41°C), seizures, cardiovascular instability, coma.",
+    "nursingAction": "ABSOLUTE CONTRAINDICATION. Never administer meperidine to a patient taking or who has taken an MAOI within the past 14 days. Use alternative opioids if analgesia is needed."
+  },
+  {
+    "id": "drug-drug-008",
+    "drug1": "Vancomycin",
+    "drug2": "Aminoglycosides (e.g., gentamicin, tobramycin)",
+    "severity": "major",
+    "mechanism": "Additive nephrotoxicity and ototoxicity. Both drug classes cause tubular injury independently; combined use potentiates renal damage.",
+    "clinicalEffect": "Acute kidney injury, hearing loss (irreversible), vestibular dysfunction.",
+    "nursingAction": "Monitor serum creatinine and BUN daily. Time drug administration to avoid peak concentration overlap when possible. Monitor for signs of nephrotoxicity (decreased urine output, rising creatinine) and ototoxicity (tinnitus, hearing loss, dizziness). Ensure adequate hydration."
+  },
+  {
+    "id": "drug-drug-009",
+    "drug1": "Lithium",
+    "drug2": "NSAIDs",
+    "severity": "major",
+    "mechanism": "NSAIDs reduce prostaglandin-mediated renal blood flow, decreasing lithium clearance by the kidneys. Sodium depletion (from NSAIDs' mild natriuretic effect) also promotes lithium retention.",
+    "clinicalEffect": "Lithium toxicity: tremor, ataxia, confusion, slurred speech, nausea, seizures. Therapeutic index is narrow (0.6–1.2 mEq/L; toxicity typically at >1.5 mEq/L).",
+    "nursingAction": "Avoid NSAIDs in patients on lithium. Use acetaminophen for analgesia/antipyresis. If NSAID is unavoidable, monitor lithium levels frequently and assess for early toxicity signs."
+  },
+  {
+    "id": "drug-drug-010",
+    "drug1": "Clopidogrel (Plavix)",
+    "drug2": "Proton pump inhibitors (omeprazole, esomeprazole)",
+    "severity": "moderate",
+    "mechanism": "Clopidogrel is a prodrug activated by CYP2C19. Omeprazole and esomeprazole inhibit CYP2C19, reducing clopidogrel activation by up to 50%.",
+    "clinicalEffect": "Reduced antiplatelet effect — increased risk of thrombotic events (MI, stroke) in patients on clopidogrel for cardiac stenting or ACS.",
+    "nursingAction": "Prefer pantoprazole or rabeprazole (lower CYP2C19 inhibition) when a PPI is needed. Document the interaction and notify prescriber. Patient education: importance of not switching PPIs without provider awareness."
+  }
+]

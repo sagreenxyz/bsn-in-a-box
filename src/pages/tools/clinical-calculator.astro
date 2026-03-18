@@ -1,0 +1,15 @@
+---
+/**
+ * tools/clinical-calculator.astro
+ * Standalone page for the clinical calculator suite.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import ClinicalCalculator from '../../components/clinical/ClinicalCalculator';
+---
+
+<ToolLayout
+  title="Clinical Calculators"
+  description="Evidence-based clinical calculators — BMI, eGFR, BSA, Glasgow Coma Scale. All calculations are performed locally with no data sent to any server."
+>
+  <ClinicalCalculator client:load />
+</ToolLayout>

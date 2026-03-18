@@ -1,0 +1,291 @@
+---
+/**
+ * [module].astro — Individual Lesson Page
+ *
+ * The full lesson view for a single MDX module. Features:
+ *   - Left sidebar with module navigation (all modules in unit, with status)
+ *   - Main content area with MDX content and a reading progress bar
+ *   - Right rail with module metadata: time, concept tags, NCLEX categories,
+ *     longitudinal patient badge, and "complete module" button
+ *   - MultimodalToggle in header (read / listen / visual modes)
+ *   - Animated completion state on marking complete
+ *
+ * Route: /phase/[phase]/[domain]/[unit]/[module]
+ */
+
+import { getCollection, getEntry } from 'astro:content';
+import LessonLayout from '../../../../../layouts/LessonLayout.astro';
+import { CONTENT_REGISTRY, getModulesByPhase } from '../../../../../lib/contentRegistry';
+
+export async function getStaticPaths() {
+  const modules = await getCollection('modules');
+  return modules.map((mod) => ({
+    params: {
+      phase: String(mod.data.phase),
+      domain: mod.data.domainId,
+      unit: mod.data.unitId,
+      module: mod.data.moduleId,
+    },
+    props: { mod },
+  }));
+}
+
+const { mod } = Astro.props;
+const { Content } = await mod.render();
+
+// Get sibling modules in the same unit for sidebar navigation
+const unitModules = CONTENT_REGISTRY
+  .filter((m) => m.phase === mod.data.phase && m.domainId === mod.data.domainId && m.unitId === mod.data.unitId)
+  .sort((a, b) => a.sequenceOrder - b.sequenceOrder);
+
+const registryEntry = CONTENT_REGISTRY.find((m) => m.moduleId === mod.data.moduleId);
+const nextModuleEntry = unitModules.find((m) => m.sequenceOrder === (registryEntry?.sequenceOrder ?? 0) + 1);
+const prevModuleEntry = unitModules.find((m) => m.sequenceOrder === (registryEntry?.sequenceOrder ?? 0) - 1);
+
+const PATIENT_NAMES: Record<string, string> = {
+  'marcus-webb': 'Marcus Webb',
+  'eleanor-vasquez': 'Eleanor Vasquez',
+  'jordan-okafor': 'Jordan Okafor',
+  'amara-osei': 'Amara Osei',
+  'thomas-nguyen': 'Thomas Nguyen',
+  'ruth-abramowitz': 'Ruth Abramowitz',
+};
+
+const PATIENT_ICONS: Record<string, string> = {
+  'marcus-webb': '👨🏿‍💻',
+  'eleanor-vasquez': '👩🏽‍🏫',
+  'jordan-okafor': '🧑🏾‍💼',
+  'amara-osei': '🤰🏿',
+  'thomas-nguyen': '🧒🏻',
+  'ruth-abramowitz': '👩🏻‍⚕️',
+};
+---
+
+<LessonLayout
+  title={mod.data.title}
+  moduleId={mod.data.moduleId}
+  phase={mod.data.phase}
+  unitModules={unitModules}
+>
+  <!-- Reading progress bar -->
+  <div
+    id="reading-progress"
+    class="fixed top-0 left-0 z-50 h-1 bg-teal-500 transition-all duration-150"
+    style="width: 0%"
+    role="progressbar"
+    aria-label="Reading progress"
+    aria-valuenow="0"
+    aria-valuemin="0"
+    aria-valuemax="100"
+  ></div>
+
+  <!-- Module metadata bar -->
+  <div class="mb-8 flex flex-wrap items-center gap-4 rounded-xl border border-navy-700 bg-navy-800 px-5 py-4 text-sm">
+    <span class="flex items-center gap-1.5 text-slate-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      ~{mod.data.estimatedMinutes} min
+    </span>
+
+    {mod.data.isSafetyCritical && (
+      <span class="flex items-center gap-1.5 rounded-full bg-crimson-900/30 px-3 py-1 text-xs font-semibold text-crimson-400">
+        ⚠ Safety Critical — 80% required
+      </span>
+    )}
+
+    {mod.data.isThresholdConcept && (
+      <span class="flex items-center gap-1.5 rounded-full bg-gold-900/30 px-3 py-1 text-xs font-semibold text-gold-400">
+        ★ Threshold Concept
+      </span>
+    )}
+
+    <!-- Concept tags -->
+    <div class="flex flex-wrap gap-2" aria-label="Concept tags">
+      {mod.data.conceptTags.map((tag: string) => (
+        <a
+          href={`/concepts/${tag}`}
+          class="rounded-full border border-teal-500/30 bg-teal-900/20 px-3 py-1 text-xs text-teal-400 transition-colors hover:bg-teal-900/40 hover:text-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
+        >
+          {tag.replace(/-/g, ' ')}
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- Longitudinal patient badges -->
+  {mod.data.longitudinalPatientIds.length > 0 && (
+    <div class="mb-6 flex flex-wrap gap-3" aria-label="Patients appearing in this module">
+      {mod.data.longitudinalPatientIds.map((patientId: string) => (
+        <a
+          href={`/patients/${patientId}`}
+          class="flex items-center gap-2 rounded-xl border border-navy-700 bg-navy-800 px-4 py-2 text-sm text-slate-300 transition-colors hover:border-teal-500/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+        >
+          <span aria-hidden="true">{PATIENT_ICONS[patientId] ?? '👤'}</span>
+          {PATIENT_NAMES[patientId] ?? patientId}
+          <span class="text-teal-500">→</span>
+        </a>
+      ))}
+    </div>
+  )}
+
+  <!-- Main MDX content -->
+  <article
+    id="lesson-content"
+    class="prose prose-invert prose-lg max-w-none
+      prose-headings:font-display prose-headings:text-white
+      prose-p:text-slate-300 prose-p:leading-relaxed
+      prose-a:text-teal-400 prose-a:no-underline hover:prose-a:underline
+      prose-strong:text-white
+      prose-code:text-teal-300 prose-code:bg-navy-800 prose-code:px-1 prose-code:rounded
+      prose-blockquote:border-teal-500 prose-blockquote:text-slate-300"
+  >
+    <h1 class="font-display text-3xl font-bold text-white mb-2">{mod.data.title}</h1>
+    <Content />
+  </article>
+
+  <!-- Module navigation footer -->
+  <div class="mt-12 flex flex-col sm:flex-row gap-4 border-t border-navy-700 pt-8">
+    {prevModuleEntry && (
+      <a
+        href={`/phase/${mod.data.phase}/${prevModuleEntry.domainId}/${prevModuleEntry.unitId}/${prevModuleEntry.moduleId}`}
+        class="flex items-center gap-2 rounded-xl border border-navy-700 px-5 py-3 text-sm text-slate-400 transition-colors hover:border-teal-500/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+      >
+        ← {prevModuleEntry.title}
+      </a>
+    )}
+
+    <!-- Complete module button -->
+    <button
+      id="complete-module-btn"
+      data-module-id={mod.data.moduleId}
+      data-concept-tags={JSON.stringify(mod.data.conceptTags)}
+      data-phase={mod.data.phase}
+      data-domain-id={mod.data.domainId}
+      data-unit-id={mod.data.unitId}
+      class="flex-1 rounded-xl bg-teal-600 px-5 py-3 font-bold text-white text-center transition-colors hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-400 min-h-[44px]"
+    >
+      ✓ Mark as Complete
+    </button>
+
+    {nextModuleEntry && (
+      <a
+        href={`/phase/${mod.data.phase}/${nextModuleEntry.domainId}/${nextModuleEntry.unitId}/${nextModuleEntry.moduleId}`}
+        class="flex items-center gap-2 rounded-xl border border-navy-700 px-5 py-3 text-sm text-slate-400 transition-colors hover:border-teal-500/50 hover:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+        id="next-module-link"
+      >
+        {nextModuleEntry.title} →
+      </a>
+    )}
+  </div>
+
+  <!-- Completion celebration overlay (hidden by default) -->
+  <div id="completion-overlay" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-navy-900/90 backdrop-blur-sm">
+    <div class="rounded-2xl border border-teal-500/30 bg-navy-900 p-10 text-center max-w-md mx-4 shadow-2xl">
+      <p class="mb-4 text-6xl" aria-hidden="true">🎓</p>
+      <h2 class="font-display text-3xl font-bold text-teal-400 mb-2">Module Complete!</h2>
+      <p id="completion-message" class="text-slate-300 mb-6"></p>
+      <div class="flex flex-col gap-3">
+        <a id="next-module-btn" href="#" class="hidden rounded-xl bg-teal-600 px-6 py-3 font-bold text-white hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-400">
+          Next Module →
+        </a>
+        <button
+          id="close-overlay-btn"
+          class="rounded-xl border border-navy-600 px-6 py-3 text-slate-300 hover:bg-navy-800 focus:outline-none focus:ring-2 focus:ring-teal-500"
+        >
+          Stay Here
+        </button>
+      </div>
+    </div>
+  </div>
+</LessonLayout>
+
+<script>
+  import {
+    completeModule,
+    getProgress,
+    isModuleUnlocked,
+  } from '../../../../../lib/progressStore';
+  import { CONTENT_REGISTRY } from '../../../../../lib/contentRegistry';
+
+  // ── Reading progress bar ───────────────────────────────────────────────────
+  const progressBar = document.getElementById('reading-progress') as HTMLElement | null;
+  const lessonContent = document.getElementById('lesson-content');
+
+  function updateReadingProgress() {
+    if (!progressBar || !lessonContent) return;
+    const contentRect = lessonContent.getBoundingClientRect();
+    const contentHeight = lessonContent.offsetHeight;
+    const scrolled = Math.max(0, -contentRect.top);
+    const percentage = Math.min(100, Math.round((scrolled / contentHeight) * 100));
+    progressBar.style.width = `${percentage}%`;
+    progressBar.setAttribute('aria-valuenow', String(percentage));
+  }
+
+  window.addEventListener('scroll', updateReadingProgress, { passive: true });
+  updateReadingProgress();
+
+  // ── Complete module button ─────────────────────────────────────────────────
+  const completeBtn = document.getElementById('complete-module-btn') as HTMLButtonElement | null;
+  const overlay = document.getElementById('completion-overlay');
+  const completionMessage = document.getElementById('completion-message');
+  const nextModuleBtn = document.getElementById('next-module-btn') as HTMLAnchorElement | null;
+  const nextModuleLink = document.getElementById('next-module-link') as HTMLAnchorElement | null;
+  const closeOverlayBtn = document.getElementById('close-overlay-btn');
+
+  if (completeBtn) {
+    const moduleId = completeBtn.dataset.moduleId ?? '';
+    const conceptTags = JSON.parse(completeBtn.dataset.conceptTags ?? '[]') as string[];
+    const phase = completeBtn.dataset.phase ?? '1';
+    const domainId = completeBtn.dataset.domainId ?? '';
+    const unitId = completeBtn.dataset.unitId ?? '';
+
+    // Check if already completed
+    const progress = getProgress();
+    const moduleState = progress.phases[phase]?.domains[domainId]?.units[unitId]?.modules[moduleId];
+    if (moduleState?.status === 'completed') {
+      completeBtn.textContent = '✓ Completed';
+      completeBtn.disabled = true;
+      completeBtn.classList.add('opacity-60', 'cursor-not-allowed');
+    }
+
+    completeBtn.addEventListener('click', () => {
+      try {
+        completeModule(moduleId, conceptTags, phase, domainId, unitId);
+        completeBtn.textContent = '✓ Completed';
+        completeBtn.disabled = true;
+        completeBtn.classList.add('opacity-60', 'cursor-not-allowed');
+
+        // Show celebration overlay
+        if (overlay && completionMessage) {
+          const nextHref = nextModuleLink?.href;
+          if (nextHref && nextModuleBtn) {
+            completionMessage.textContent = 'Your progress has been saved. Ready for the next module?';
+            nextModuleBtn.href = nextHref;
+            nextModuleBtn.classList.remove('hidden');
+          } else {
+            completionMessage.textContent = 'You have completed all modules in this unit! Check the dashboard for your next step.';
+          }
+          overlay.classList.remove('hidden');
+          overlay.setAttribute('aria-modal', 'true');
+          closeOverlayBtn?.focus();
+        }
+      } catch (e) {
+        console.warn('BSN: Could not mark module complete:', e);
+      }
+    });
+  }
+
+  closeOverlayBtn?.addEventListener('click', () => {
+    overlay?.classList.add('hidden');
+    completeBtn?.focus();
+  });
+
+  // Close overlay on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !overlay?.classList.contains('hidden')) {
+      overlay?.classList.add('hidden');
+      completeBtn?.focus();
+    }
+  });
+</script>

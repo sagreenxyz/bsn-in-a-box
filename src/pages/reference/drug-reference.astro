@@ -1,0 +1,15 @@
+---
+/**
+ * reference/drug-reference.astro
+ * Drug interaction reference page.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import DrugReferenceCenter from '../../components/learning/DrugReferenceCenter';
+---
+
+<ToolLayout
+  title="Drug Reference Center"
+  description="High-alert drug interactions with mechanisms, clinical effects, and nursing actions. Search by drug name and filter by severity."
+>
+  <DrugReferenceCenter client:load />
+</ToolLayout>

@@ -1,0 +1,78 @@
+---
+title: "Vital Signs: Measurement, Interpretation, and Clinical Response"
+moduleId: "p1-d2-u1-m02"
+phase: 1
+domainId: "clinical-foundations"
+unitId: "health-assessment"
+sequenceOrder: 2
+prerequisites:
+  - "p1-d2-u1-m01"
+conceptTags:
+  - "perfusion"
+  - "oxygenation"
+  - "thermoregulation"
+  - "safety"
+nclex_categories:
+  - "Physiological Integrity"
+  - "Reduction of Risk Potential"
+estimatedMinutes: 50
+isThresholdConcept: false
+isSafetyCritical: true
+longitudinalPatientIds:
+  - "eleanor-vasquez"
+  - "marcus-webb"
+hasGatewayExam: false
+gatewayPassThreshold: 80
+productiveFailureEnabled: false
+---
+
+import KnowledgeCheck from '../../../../../components/assessment/KnowledgeCheck';
+import ElaborativePrompts from '../../../../../components/learning/ElaborativePrompts';
+import PatientEncounter from '../../../../../components/clinical/PatientEncounter';
+
+## Learning Objectives
+
+Vital signs — temperature, pulse, respiration, blood pressure, and oxygen saturation — are the most frequently performed nursing assessment and among the most consequential. By completing this module, you will be able to measure each vital sign using correct technique and explain why technique matters clinically, interpret vital sign values in the context of the patient's age, baseline, diagnosis, and current clinical situation, recognize the clinical significance of abnormal vital sign patterns and trends over time, describe the physiological mechanisms that underlie each vital sign parameter, and initiate an appropriate nursing response to critical vital sign values including the correct communication to the interprofessional team using SBAR format.
+
+## Temperature: Regulation, Measurement, and Clinical Significance
+
+Body temperature is the product of the balance between heat production and heat loss, regulated by the hypothalamus with remarkable precision in healthy adults. Core body temperature is normally maintained between 36.5°C and 37.5°C (97.7°F to 99.5°F), with diurnal variation of approximately 1°C — lower in the early morning and highest in the late afternoon and early evening. This normal variation means that a temperature of 37.8°C (100°F) at 8 AM carries different significance than the same value at 4 PM.
+
+Fever — a temperature above 38°C (100.4°F) — is not an error in thermoregulation but a regulated upward shift of the hypothalamic set point in response to pyrogens, most commonly infectious in origin. Understanding this mechanism has clinical implications: fever is itself a physiological response that serves functions including inhibiting bacterial replication and enhancing immune function. The clinical decision of whether to treat fever is not simply "bring the number down" — it is a nuanced judgment about the patient's overall status, the underlying cause, and whether the fever is causing sufficient physiological burden to warrant treatment.
+
+Hypothermia — a core temperature below 35°C (95°F) — is a medical emergency that impairs cardiac conduction, respiratory function, coagulation, and neurological function in a progressively severe cascade. Its causes range from environmental exposure to septic shock to severe endocrine dysfunction. Measurement accuracy becomes critical when hypothermia is suspected — tympanic or axillary thermometers are unreliable at extreme temperatures, and rectal or esophageal core temperature measurement is required.
+
+<PatientEncounter client:visible patientId="marcus-webb" encounterNumber={3}>
+Marcus Webb presents to the urgent care center at 11 PM reporting four days of fatigue, increased thirst, and urination more frequent than usual. He tells you his blood glucose checked at home was "around 400." His vital signs are: temperature 38.2°C tympanic, pulse 118 bpm and regular, respirations 22/min with a slightly fruity odor to his breath, blood pressure 102/68 mmHg lying and 88/56 mmHg sitting, oxygen saturation 97% on room air.
+
+This vital sign cluster tells a coherent clinical story if you know how to read it. The fever with the glucose of 400 raises the question of infectious trigger — infections commonly precipitate hyperglycemia and diabetic ketoacidosis in patients with Type 1 diabetes. The elevated pulse and respiratory rate are both consistent with the metabolic acidosis of DKA — the respiratory rate elevation in DKA is Kussmaul breathing, a compensatory response to acidemia that drives off carbon dioxide. The fruity breath odor is acetone from ketone production. The blood pressure drop from lying to sitting — orthostatic hypotension — indicates significant volume depletion. Taken together, these vital signs paint the picture of a young man with likely DKA who needs immediate assessment, IV access, fluids, and urgent physician notification. No single vital sign tells this story. All of them together do.
+</PatientEncounter>
+
+<KnowledgeCheck client:visible moduleId="p1-d2-u1-m02" questionIndex={0} />
+
+## Pulse: Rate, Rhythm, and Character
+
+The pulse is the arterial pressure wave generated by left ventricular contraction and transmitted through the arterial tree. Pulse rate, rhythm, and character all carry diagnostic information. A normal adult resting pulse is 60 to 100 beats per minute, with the lower end of normal reflecting effective cardiovascular conditioning and the upper end requiring assessment to distinguish sinus tachycardia from arrhythmia.
+
+Pulse assessment includes more than rate. Rhythm — whether the beats arrive at regular or irregular intervals — is clinically significant: an irregularly irregular rhythm suggests atrial fibrillation, a common arrhythmia with substantial stroke risk. Character — the amplitude and quality of the pulse wave — reflects stroke volume and vascular compliance. A bounding pulse with high amplitude suggests high stroke volume or widened pulse pressure (as in aortic regurgitation). A thready pulse with low amplitude suggests reduced stroke volume, most commonly from hypovolemia or pump failure. Pulsus alternans — alternating strong and weak beats — is a sign of significant left ventricular dysfunction.
+
+## Blood Pressure: Interpretation Beyond the Number
+
+Blood pressure is the product of cardiac output and systemic vascular resistance, and understanding this relationship is prerequisite to interpreting blood pressure values accurately. The same blood pressure number can reflect completely different physiological states: a blood pressure of 90/60 in a pregnant woman at 20 weeks gestation is often normal; the same number in an elderly patient with known hypertension who was 160/90 yesterday is a hemodynamic emergency.
+
+Hypertension — defined by the American College of Cardiology and American Heart Association as sustained blood pressure at or above 130/80 mmHg — affects nearly half of U.S. adults and is the most important modifiable risk factor for cardiovascular disease. The nursing assessment of blood pressure requires scrupulous technique: proper cuff size for the patient's arm circumference (a common source of measurement error), measurement in a seated position after five minutes of rest, both arms on first assessment, avoidance of tight clothing over the arm, and documentation of position, site, and cuff size.
+
+<KnowledgeCheck client:visible moduleId="p1-d2-u1-m02" questionIndex={1} />
+
+## Oxygen Saturation and Respiratory Rate
+
+Pulse oximetry measures oxygen saturation (SpO2) non-invasively via light absorption by hemoglobin, providing a continuous real-time surrogate for arterial oxygen saturation (SaO2). Normal SpO2 is 95-100% in healthy adults. An SpO2 below 90% represents significant hypoxemia requiring immediate assessment and intervention. Critical limitations of pulse oximetry include inaccuracy in the presence of carbon monoxide poisoning (which is read as oxyhemoglobin, producing falsely normal readings), inaccuracy in severe peripheral vasoconstriction or anemia, and inability to detect hypercarbia — elevated carbon dioxide — which can be present with normal oxygen saturation in patients receiving supplemental oxygen.
+
+Respiratory rate is the most commonly poorly measured vital sign in clinical practice, often estimated rather than counted for a full 60 seconds. An accurate respiratory rate is one of the most sensitive early indicators of clinical deterioration — subtle tachypnea at 20-22 breaths per minute in a patient who was previously at 14-16 is often the first detectable sign of sepsis, pulmonary embolism, or impending respiratory failure. The habit of actually counting respirations for a full minute, every time, is a patient safety behavior that experienced nurses often abandon and that beginners should establish and never abandon.
+
+<ElaborativePrompts client:visible moduleId="p1-d2-u1-m02" prompts={[
+  "Why does orthostatic hypotension — a blood pressure drop of 20 mmHg systolic or 10 mmHg diastolic when moving from lying to standing — indicate volume depletion rather than simply positional blood pressure variation?",
+  "Why is respiratory rate the vital sign most consistently associated with early detection of clinical deterioration, and what features of its measurement in practice reduce its reliability as a warning indicator?",
+  "Why must vital sign values always be interpreted as a pattern over time rather than as isolated data points, and what clinical harm can result from treating each measurement as an independent finding?",
+  "Why does carbon monoxide poisoning produce a falsely normal pulse oximetry reading, and what does this limitation tell us about the difference between what we can measure and what we actually need to know?"
+]} />
