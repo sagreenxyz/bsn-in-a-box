@@ -1,0 +1,17 @@
+---
+/**
+ * tools/simulation.astro
+ * Standalone page for the Clinical Simulation branching scenario engine.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import ClinicalSimulation from '../../components/clinical/ClinicalSimulation';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<ToolLayout
+  title="Clinical Simulations"
+  description="Branching scenario simulations for all six longitudinal patients. Make clinical decisions and receive immediate rationale-based feedback."
+  breadcrumbs={[{ label: 'Tools', href: `${base}/tools` }]}
+>
+  <ClinicalSimulation client:load />
+</ToolLayout>

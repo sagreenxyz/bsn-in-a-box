@@ -1,0 +1,17 @@
+---
+/**
+ * reference/nanda.astro
+ * NANDA-I nursing diagnosis reference page.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import NandaReference from '../../components/learning/NandaReference';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<ToolLayout
+  title="Nursing Diagnoses (NANDA-I)"
+  description="Complete NANDA-I nursing diagnosis reference with defining characteristics, related factors, and suggested NOC/NIC pairings. Organized by domain with search."
+  breadcrumbs={[{ label: 'Reference', href: `${base}/reference` }]}
+>
+  <NandaReference client:load />
+</ToolLayout>
