@@ -16,7 +16,7 @@ export function getStaticPaths() {
 }
 
 const { patient } = Astro.props;
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // Build phase appearance labels
 const phaseNames: Record<string, string> = {
@@ -33,7 +33,7 @@ const phaseNames: Record<string, string> = {
 >
   <!-- Breadcrumb -->
   <nav class="mb-6 text-sm text-slate-500" aria-label="Breadcrumb">
-    <a href={`${base}patients`} class="text-teal-400 hover:text-teal-300">Your Patients</a>
+    <a href={`${base}/patients`} class="text-teal-400 hover:text-teal-300">Your Patients</a>
     <span class="mx-2">›</span>
     <span class="text-slate-300">{patient.name}</span>
   </nav>
@@ -115,7 +115,7 @@ const phaseNames: Record<string, string> = {
                       // Parse module ID to build URL
                       const parts = moduleId.match(/^p(\d+)-d(\d+)-u(\d+)-m(\d+)$/);
                       const href = parts
-                        ? `${base}phase/${parts[1]}/${parts[2]}/${parts[3]}/${moduleId}`
+                        ? `${base}/phase/${parts[1]}/${parts[2]}/${parts[3]}/${moduleId}`
                         : '#';
                       return (
                         <a
@@ -157,7 +157,7 @@ const phaseNames: Record<string, string> = {
 
       <!-- Return to patients -->
       <a
-        href={`${base}patients`}
+        href={`${base}/patients`}
         class="block w-full text-center rounded-xl border border-navy-600 bg-navy-800 py-3 text-slate-300 hover:bg-navy-700 hover:border-navy-500 transition-colors text-sm font-medium"
       >
         ← All Patients

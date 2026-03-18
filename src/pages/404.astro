@@ -7,7 +7,7 @@
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout
@@ -25,7 +25,7 @@ const base = import.meta.env.BASE_URL;
       to lesson pages — try navigating from the dashboard and your progress will guide you there.
     </p>
     <a
-      href={base}
+      href={`${base}/`}
       class="rounded-lg bg-teal-600 px-8 py-3 font-bold text-white hover:bg-teal-500 transition-colors min-h-[44px] inline-flex items-center"
     >
       Go to Dashboard
