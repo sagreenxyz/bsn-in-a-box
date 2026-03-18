@@ -1,0 +1,70 @@
+---
+/**
+ * BaseLayout.astro
+ *
+ * The HTML shell used by every page in BSN in a Box. Handles meta tags,
+ * font includes, global CSS, PWA manifest link, and the skip-to-content
+ * accessibility link. All other layouts extend this one.
+ */
+export interface Props {
+  /** Page title — appended with "BSN in a Box" automatically. */
+  title: string;
+  /** Meta description for SEO and sharing. */
+  description?: string;
+  /** Open Graph image path (relative to base). */
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'BSN in a Box — A complete, self-directed, competency-gated Bachelor of Science in Nursing learning system — free, offline-capable, and student-owned.',
+  ogImage = '/bsn-in-a-box/icons/icon-512.png',
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0f172a" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title} — BSN in a Box`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalURL} />
+
+    <title>{title} — BSN in a Box</title>
+
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="manifest" href={`${base}manifest.webmanifest`} />
+    <link rel="icon" type="image/png" sizes="192x192" href={`${base}icons/icon-192.png`} />
+    <link rel="apple-touch-icon" href={`${base}icons/icon-192.png`} />
+
+    <!-- Global CSS (includes @font-face declarations and Tailwind) -->
+    <link rel="stylesheet" href={`${base}styles/global.css`} />
+  </head>
+  <body class="bg-navy text-slate-100 font-sans min-h-screen">
+    <!-- Skip-to-content for keyboard/screen reader users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <slot />
+
+    <!-- Service worker registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/bsn-in-a-box/sw.js').catch(() => {
+            // Service worker registration is non-critical — fail silently.
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

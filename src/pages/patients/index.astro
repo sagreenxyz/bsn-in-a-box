@@ -1,0 +1,55 @@
+---
+/**
+ * patients/index.astro — Longitudinal Patient Overview
+ *
+ * Gallery of all six longitudinal patients with their clinical threads and
+ * the student's current encounter history with each one.
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import { LONGITUDINAL_PATIENTS } from '../../lib/unfoldingCaseManager';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<DashboardLayout
+  title="Your Patients"
+  description="The six longitudinal patients you will follow throughout your BSN journey — from introduction through complex care."
+>
+  <h1 class="font-serif text-3xl font-bold text-white mb-2">Your Patients</h1>
+  <p class="text-slate-400 mb-8 max-w-prose leading-relaxed">
+    These six patients accompany you through all four phases of the curriculum. You will meet them
+    as whole persons before they become complex clinical challenges. Each patient's story is designed
+    to develop your capacity for longitudinal clinical thinking — recognizing change from baseline,
+    following complications across time, and caring for people rather than conditions.
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {LONGITUDINAL_PATIENTS.map((patient) => (
+      <a
+        href={`${base}patients/${patient.id}`}
+        class="rounded-xl border border-slate-700 bg-slate-900 p-6 hover:border-teal-700 hover:bg-slate-800 transition-colors block"
+      >
+        <div class="flex items-start justify-between mb-3">
+          <div>
+            <h2 class="font-serif text-xl font-bold text-white">{patient.name}</h2>
+            <p class="text-sm text-slate-400">
+              Age {patient.age} · {patient.gender} · {patient.background}
+            </p>
+          </div>
+          <span class="text-2xl" aria-hidden="true">♡</span>
+        </div>
+
+        <p class="text-sm text-teal-400 font-medium mb-3">{patient.clinicalThread}</p>
+
+        <p class="text-sm text-slate-400 leading-relaxed line-clamp-3">
+          {patient.phaseArc}
+        </p>
+
+        <div class="mt-4 flex items-center gap-4">
+          <p class="text-xs text-slate-500">0 encounters completed</p>
+          <span class="text-xs text-teal-500 font-medium">View profile →</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</DashboardLayout>

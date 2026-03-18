@@ -1,0 +1,229 @@
+---
+/**
+ * LessonLayout.astro
+ *
+ * Three-column layout used for all learning module pages:
+ *   Left sidebar — module navigation list for the current unit
+ *   Main content area — MDX content with reading progress bar
+ *   Right rail — module metadata (concept tags, NCLEX categories, patient badges,
+ *                estimated time remaining, threshold concept flag)
+ *
+ * The reading progress bar is injected via a client-side script that reads
+ * the scroll position and updates a CSS custom property.
+ */
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  /** Concept tags for this module, displayed as clickable chips in the right rail. */
+  conceptTags?: string[];
+  /** NCLEX-RN client needs categories addressed by this module. */
+  nclexCategories?: string[];
+  /** Longitudinal patient IDs featured in this module. */
+  patientIds?: string[];
+  /** Estimated reading time in minutes. */
+  estimatedMinutes?: number;
+  /** Whether this module addresses a threshold concept. */
+  isThresholdConcept?: boolean;
+  /** Whether this module is safety-critical. */
+  isSafetyCritical?: boolean;
+  /** The moduleId for progress tracking. */
+  moduleId?: string;
+}
+
+const {
+  title,
+  description,
+  conceptTags = [],
+  nclexCategories = [],
+  patientIds = [],
+  estimatedMinutes,
+  isThresholdConcept = false,
+  isSafetyCritical = false,
+  moduleId,
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+
+const patientNames: Record<string, string> = {
+  'marcus-webb': 'Marcus Webb',
+  'eleanor-vasquez': 'Eleanor Vasquez',
+  'jordan-okafor': 'Jordan Okafor',
+  'amara-osei': 'Amara Osei',
+  'thomas-nguyen': 'Thomas Nguyen',
+  'ruth-abramowitz': 'Ruth Abramowitz',
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Reading progress bar (fills based on scroll position) -->
+  <div
+    class="reading-progress"
+    id="reading-progress-bar"
+    style="width: 0%;"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Top bar with breadcrumb -->
+  <nav
+    class="sticky top-0 z-40 border-b border-slate-700 bg-navy bg-opacity-95 backdrop-blur-sm px-4 py-2"
+    aria-label="Breadcrumb and lesson navigation"
+  >
+    <div class="mx-auto flex max-w-screen-xl items-center justify-between">
+      <a
+        href={base}
+        class="flex items-center gap-2 text-teal-400 font-semibold hover:text-teal-300 transition-colors min-h-[44px] text-sm"
+        aria-label="BSN in a Box — Home"
+      >
+        <span aria-hidden="true">←</span>
+        <span>Dashboard</span>
+      </a>
+      <div class="flex items-center gap-2">
+        {isSafetyCritical && (
+          <span
+            class="rounded-full bg-crimson-900 px-2 py-0.5 text-xs font-bold text-crimson-300 border border-crimson-700"
+            title="Safety-critical content — 80% gate threshold"
+          >
+            Safety Critical
+          </span>
+        )}
+        {isThresholdConcept && (
+          <span
+            class="rounded-full bg-gold-900 px-2 py-0.5 text-xs font-bold text-gold-300 border border-gold-700"
+            title="This module addresses a threshold concept"
+          >
+            Threshold Concept
+          </span>
+        )}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Three-column layout -->
+  <div class="mx-auto max-w-screen-xl flex gap-0">
+    <!-- Left sidebar: unit module list -->
+    <aside
+      class="hidden lg:block w-64 shrink-0 border-r border-slate-700 min-h-screen px-4 py-6"
+      aria-label="Module navigation"
+    >
+      <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">
+        Unit Modules
+      </h2>
+      <!-- Module list populated by page-level logic or React island -->
+      <slot name="sidebar" />
+    </aside>
+
+    <!-- Main content area -->
+    <main
+      id="main-content"
+      class="flex-1 min-w-0 px-6 py-8"
+    >
+      <!-- Module title -->
+      <h1 class="font-serif text-3xl font-bold text-white mb-6 leading-tight">
+        {title}
+      </h1>
+
+      <!-- Lesson content -->
+      <article class="prose-lesson">
+        <slot />
+      </article>
+
+      <!-- Module completion button -->
+      {moduleId && (
+        <div class="mt-12 border-t border-slate-700 pt-8">
+          <button
+            id="complete-module-btn"
+            data-module-id={moduleId}
+            class="w-full rounded-lg bg-teal-600 px-6 py-4 text-center font-bold text-white hover:bg-teal-500 active:bg-teal-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
+            type="button"
+          >
+            I have completed this module →
+          </button>
+        </div>
+      )}
+    </main>
+
+    <!-- Right rail: metadata -->
+    <aside
+      class="hidden xl:block w-72 shrink-0 border-l border-slate-700 px-4 py-6"
+      aria-label="Module metadata"
+    >
+      {estimatedMinutes && (
+        <div class="mb-6">
+          <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+            Estimated Time
+          </h2>
+          <p class="text-slate-200 font-mono">{estimatedMinutes} min</p>
+        </div>
+      )}
+
+      {conceptTags.length > 0 && (
+        <div class="mb-6">
+          <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">
+            Core Concepts
+          </h2>
+          <div class="flex flex-wrap gap-2">
+            {conceptTags.map((tag) => (
+              <a
+                href={`${base}concepts/${tag}`}
+                class="rounded-full bg-teal-900 border border-teal-700 px-3 py-1 text-xs font-medium text-teal-300 hover:bg-teal-800 hover:text-teal-200 transition-colors capitalize min-h-[44px] flex items-center"
+              >
+                {tag.replace(/-/g, ' ')}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {nclexCategories.length > 0 && (
+        <div class="mb-6">
+          <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">
+            NCLEX Categories
+          </h2>
+          <ul class="space-y-1">
+            {nclexCategories.map((cat) => (
+              <li class="text-xs text-slate-400">{cat}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {patientIds.length > 0 && (
+        <div class="mb-6">
+          <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">
+            Featured Patients
+          </h2>
+          <ul class="space-y-2">
+            {patientIds.map((id) => (
+              <li>
+                <a
+                  href={`${base}patients/${id}`}
+                  class="flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-slate-300 hover:border-teal-700 hover:text-teal-300 transition-colors min-h-[44px]"
+                >
+                  <span aria-hidden="true">♡</span>
+                  {patientNames[id] ?? id}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </aside>
+  </div>
+
+  <!-- Reading progress bar script -->
+  <script>
+    const progressBar = document.getElementById('reading-progress-bar');
+    if (progressBar) {
+      const updateProgress = () => {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = `${Math.min(100, progress)}%`;
+      };
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+    }
+  </script>
+</BaseLayout>

@@ -1,0 +1,74 @@
+---
+/**
+ * reference/index.astro — Reference Library
+ *
+ * Tabbed layout housing lab values, drug reference, clinical calculators,
+ * nursing diagnosis builder, and NCLEX blueprint tracker.
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+
+const sections = [
+  {
+    id: 'lab-values',
+    title: 'Lab Values',
+    description: 'Complete reference for 80+ laboratory values with normal ranges, panic values, and nursing actions for critical results.',
+    icon: '⊕',
+    available: true,
+  },
+  {
+    id: 'drug-reference',
+    title: 'Drug Reference',
+    description: 'Drug interaction checker (200 high-alert interactions) and drug class browser organized by body system, with nursing considerations for each.',
+    icon: '℞',
+    available: true,
+  },
+  {
+    id: 'nanda',
+    title: 'Nursing Diagnoses',
+    description: 'Complete current NANDA-I diagnosis list with defining characteristics, related factors, and suggested NOC/NIC pairings.',
+    icon: '♡',
+    available: true,
+  },
+  {
+    id: 'nclex-blueprint',
+    title: 'NCLEX-NGN Blueprint',
+    description: 'The full NGN test plan with client needs categories, subcategories, and your current performance in each area.',
+    icon: '◎',
+    available: true,
+  },
+  {
+    id: 'terminology',
+    title: 'Medical Terminology',
+    description: '300+ medical terms with root, prefix, and suffix deconstruction. Four learning modes including timed matching.',
+    icon: 'Aa',
+    available: true,
+  },
+];
+---
+
+<DashboardLayout
+  title="Reference Library"
+  description="BSN in a Box clinical reference — lab values, drug interactions, nursing diagnoses, NCLEX blueprint, and medical terminology."
+>
+  <h1 class="font-serif text-3xl font-bold text-white mb-2">Reference Library</h1>
+  <p class="text-slate-400 mb-8 max-w-prose">
+    Every reference dataset on this page is bundled locally and functions without an internet
+    connection. All data is consistent with current clinical standards and the OpenStax nursing
+    series. Use these references during your study sessions and in simulation scenarios.
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {sections.map((section) => (
+      <a
+        href={`/bsn-in-a-box/reference/${section.id}`}
+        class="rounded-xl border border-slate-700 bg-slate-900 p-6 hover:border-teal-700 hover:bg-slate-800 transition-colors block"
+      >
+        <div class="flex items-center gap-3 mb-3">
+          <span class="text-xl text-teal-400 font-mono" aria-hidden="true">{section.icon}</span>
+          <h2 class="font-serif font-bold text-white">{section.title}</h2>
+        </div>
+        <p class="text-sm text-slate-400 leading-relaxed">{section.description}</p>
+      </a>
+    ))}
+  </div>
+</DashboardLayout>
