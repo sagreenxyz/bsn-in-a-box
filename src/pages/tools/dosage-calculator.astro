@@ -1,0 +1,15 @@
+---
+/**
+ * tools/dosage-calculator.astro
+ * Standalone page for the progressive DosageCalculator tool.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import DosageCalculator from '../../components/assessment/DosageCalculator';
+---
+
+<ToolLayout
+  title="Dosage Calculator"
+  description="Five-level progressive dosage calculation practice — from basic unit conversions through critical care infusion rates. All calculations are locally computed."
+>
+  <DosageCalculator client:load />
+</ToolLayout>

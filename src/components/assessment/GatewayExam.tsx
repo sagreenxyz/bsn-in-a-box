@@ -23,25 +23,27 @@ import { recordQuizAttempt, completeModule } from '../../lib/progressStore';
 import type { Question } from './QuizEngine';
 
 interface GatewayExamProps {
-  questions: Question[];
-  examId: string;
+  questions?: Question[];
+  examId?: string;
   phase: 1 | 2 | 3 | 4;
   nextPhaseName?: string;
   timeLimitMinutes?: number;
+  passingScore?: number;
   onComplete?: (result: { score: number; passed: boolean }) => void;
 }
 
 type ExamState = 'not-started' | 'in-progress' | 'submitted';
 
 export default function GatewayExam({
-  questions,
+  questions = [],
   examId,
   phase,
   nextPhaseName,
   timeLimitMinutes = 90,
+  passingScore,
   onComplete,
 }: GatewayExamProps) {
-  const passThreshold = phase === 4 ? 80 : 76;
+  const passThreshold = passingScore ?? (phase === 4 ? 80 : 76);
   const [examState, setExamState] = useState<ExamState>('not-started');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string[]>>({});
@@ -49,29 +51,6 @@ export default function GatewayExam({
   const [timeRemaining, setTimeRemaining] = useState(timeLimitMinutes * 60);
   const [result, setResult] = useState<{ score: number; passed: boolean; conceptBreakdown: Record<string, { correct: number; total: number }> } | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  // ── Timer ──────────────────────────────────────────────────────────────────
-  useEffect(() => {
-    if (examState !== 'in-progress') return;
-    timerRef.current = setInterval(() => {
-      setTimeRemaining((t) => {
-        if (t <= 1) {
-          handleAutoSubmit();
-          return 0;
-        }
-        return t - 1;
-      });
-    }, 1000);
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
-  }, [examState]);
-
-  const formatTime = (seconds: number) => {
-    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
-    const s = (seconds % 60).toString().padStart(2, '0');
-    return `${m}:${s}`;
-  };
-
-  const isUrgent = timeRemaining < 600; // < 10 minutes
 
   // ── Scoring ────────────────────────────────────────────────────────────────
   const calculateResult = useCallback((givenAnswers: Record<string, string[]>) => {
@@ -115,7 +94,33 @@ export default function GatewayExam({
     submitExam(answers);
   }, [submitExam, answers]);
 
+  const handleAutoSubmitRef = useRef(handleAutoSubmit);
+  useEffect(() => { handleAutoSubmitRef.current = handleAutoSubmit; }, [handleAutoSubmit]);
+
+  // ── Timer ──────────────────────────────────────────────────────────────────
+  useEffect(() => {
+    if (examState !== 'in-progress') return;
+    timerRef.current = setInterval(() => {
+      setTimeRemaining((t) => {
+        if (t <= 1) {
+          handleAutoSubmitRef.current();
+          return 0;
+        }
+        return t - 1;
+      });
+    }, 1000);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [examState]);
+
   const handleManualSubmit = () => submitExam(answers);
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  };
+
+  const isUrgent = timeRemaining < 600; // < 10 minutes
 
   // ── Answer selection ───────────────────────────────────────────────────────
   const handleAnswer = (questionId: string, selected: string[]) => {
@@ -133,6 +138,18 @@ export default function GatewayExam({
 
   // ── Start screen ───────────────────────────────────────────────────────────
   if (examState === 'not-started') {
+    if (questions.length === 0) {
+      return (
+        <div className="rounded-2xl border border-navy-700 bg-navy-900 p-8 text-center">
+          <h2 className="font-display text-3xl font-bold text-white mb-4">Phase {phase} Gateway Exam</h2>
+          <div className="mx-auto max-w-md rounded-xl border border-yellow-500/30 bg-yellow-900/10 p-5 text-left text-sm text-yellow-300">
+            <p className="font-semibold mb-2">Exam questions not yet available</p>
+            <p>Complete all Phase {phase} modules and knowledge checks to unlock the gateway exam. The exam questions are generated from your completed curriculum content.</p>
+          </div>
+          <p className="mt-4 text-slate-500 text-sm">Required: complete all Phase {phase} modules with ≥80% mastery.</p>
+        </div>
+      );
+    }
     return (
       <div className="rounded-2xl border border-navy-700 bg-navy-900 p-8 text-center">
         <h2 className="font-display text-3xl font-bold text-white">Phase {phase} Gateway Exam</h2>

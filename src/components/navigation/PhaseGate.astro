@@ -216,7 +216,7 @@ const priorPhase = phase - 1;
               gapTextEl.textContent =
                 gap > 0
                   ? `You need ${gap} more percentage point${gap === 1 ? '' : 's'} to unlock Phase ${phase}.`
-                  : 'You have passed the threshold — refresh to check your unlock status.';
+                  : `You have passed the threshold — retake the Phase ${phase - 1} gateway to record your passing score.`;
             }
           } else {
             // No attempt yet

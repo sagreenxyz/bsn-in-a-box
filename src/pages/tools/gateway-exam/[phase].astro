@@ -1,0 +1,38 @@
+---
+/**
+ * tools/gateway-exam/[phase].astro
+ * Dynamic page for phase gateway exams.
+ * Phase is passed as a URL parameter; the exam is loaded from public/data/quizzes.
+ */
+import ToolLayout from '../../../layouts/ToolLayout.astro';
+import GatewayExam from '../../../components/assessment/GatewayExam';
+
+export function getStaticPaths() {
+  return [1, 2, 3, 4].map((phase) => ({ params: { phase: String(phase) } }));
+}
+
+const { phase } = Astro.params;
+const phaseNum = parseInt(phase);
+
+const phaseNames: Record<number, string> = {
+  1: 'Foundations of Nursing Practice',
+  2: 'Intermediate Clinical Nursing',
+  3: 'Advanced Clinical Nursing',
+  4: 'Synthesis & NCLEX Preparation',
+};
+const passThreshold = phaseNum === 4 ? 80 : 76;
+---
+
+<ToolLayout
+  title={`Phase ${phase} Gateway Exam`}
+  description={`Gateway Exam for Phase ${phase}: ${phaseNames[phaseNum] ?? 'Advanced Nursing'}. Timed assessment — you must score ≥${passThreshold}% to unlock Phase ${phaseNum + 1}.`}
+>
+  <div class="max-w-3xl mx-auto">
+    <GatewayExam
+      client:only="react"
+      phase={phaseNum}
+      passingScore={passThreshold}
+      timeLimitMinutes={120}
+    />
+  </div>
+</ToolLayout>

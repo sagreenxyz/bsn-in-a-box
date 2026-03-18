@@ -1,0 +1,15 @@
+---
+/**
+ * tools/sbar-builder.astro
+ * Standalone page for the SBAR Communication Builder tool.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import SBARBuilder from '../../components/clinical/SBARBuilder';
+---
+
+<ToolLayout
+  title="SBAR Communication Builder"
+  description="Practice structured SBAR clinical communication. Fill in each section with guided prompts and generate a complete, formatted SBAR you can copy and review."
+>
+  <SBARBuilder client:load />
+</ToolLayout>

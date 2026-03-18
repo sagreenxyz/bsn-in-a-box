@@ -1,0 +1,17 @@
+---
+/**
+ * tools/nclex-readiness.astro
+ * Standalone page for the NCLEX Readiness Meter tool.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import NCLEXReadinessMeter from '../../components/assessment/NCLEXReadinessMeter';
+---
+
+<ToolLayout
+  title="NCLEX Readiness Meter"
+  description="Composite weighted NCLEX readiness score calculated from your module completion, assessment performance, retrieval practice, and concept engagement."
+>
+  <div class="max-w-2xl mx-auto">
+    <NCLEXReadinessMeter client:load />
+  </div>
+</ToolLayout>

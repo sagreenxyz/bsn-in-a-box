@@ -1,0 +1,167 @@
+---
+/**
+ * patients/[patientId].astro — Individual Patient Profile Page
+ *
+ * Displays full biographical information, clinical thread, and the student's
+ * encounter history for a specific longitudinal patient.
+ */
+import DashboardLayout from '../../layouts/DashboardLayout.astro';
+import { LONGITUDINAL_PATIENTS } from '../../lib/unfoldingCaseManager';
+
+export function getStaticPaths() {
+  return LONGITUDINAL_PATIENTS.map((patient) => ({
+    params: { patientId: patient.id },
+    props: { patient },
+  }));
+}
+
+const { patient } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+// Build phase appearance labels
+const phaseNames: Record<string, string> = {
+  '1': 'Phase 1 — Foundations',
+  '2': 'Phase 2 — Intermediate Clinical',
+  '3': 'Phase 3 — Advanced Clinical',
+  '4': 'Phase 4 — Synthesis & NCLEX Prep',
+};
+---
+
+<DashboardLayout
+  title={patient.name}
+  description={`Patient profile: ${patient.name} — ${patient.clinicalThread}`}
+>
+  <!-- Breadcrumb -->
+  <nav class="mb-6 text-sm text-slate-500" aria-label="Breadcrumb">
+    <a href={`${base}patients`} class="text-teal-400 hover:text-teal-300">Your Patients</a>
+    <span class="mx-2">›</span>
+    <span class="text-slate-300">{patient.name}</span>
+  </nav>
+
+  <!-- Patient header -->
+  <header class="mb-10">
+    <div class="flex items-start gap-6">
+      <!-- Avatar placeholder -->
+      <div
+        class="flex-shrink-0 w-20 h-20 rounded-full bg-navy-700 border-2 border-teal-500 flex items-center justify-center text-3xl"
+        aria-hidden="true"
+      >
+        ♡
+      </div>
+      <div>
+        <h1 class="font-display text-3xl font-bold text-white mb-1">{patient.name}</h1>
+        <p class="text-slate-400 text-sm mb-2">
+          {patient.age} years · {patient.gender} · {patient.background}
+        </p>
+        <p class="text-teal-400 font-medium">{patient.clinicalThread}</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content grid -->
+  <div class="grid gap-8 lg:grid-cols-3">
+    <!-- Left column: biography -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- Clinical background -->
+      <section class="rounded-2xl border border-navy-700 bg-navy-900 p-6">
+        <h2 class="font-display text-xl font-bold text-white mb-4">Background</h2>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+          <div>
+            <dt class="text-slate-500 mb-0.5">Occupation</dt>
+            <dd class="text-slate-200">{patient.occupation}</dd>
+          </div>
+          <div>
+            <dt class="text-slate-500 mb-0.5">Living Situation</dt>
+            <dd class="text-slate-200">{patient.livingSituation}</dd>
+          </div>
+          <div class="sm:col-span-2">
+            <dt class="text-slate-500 mb-1">Medical History at Phase 1</dt>
+            <dd>
+              <ul class="space-y-1">
+                {patient.medicalHistory.map((item) => (
+                  <li class="text-slate-200 flex items-start gap-2">
+                    <span class="text-teal-500 mt-0.5">▸</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- Phase arc -->
+      <section class="rounded-2xl border border-navy-700 bg-navy-900 p-6">
+        <h2 class="font-display text-xl font-bold text-white mb-4">Clinical Journey</h2>
+        <p class="text-slate-300 leading-relaxed">{patient.phaseArc}</p>
+      </section>
+
+      <!-- Curriculum appearances -->
+      <section class="rounded-2xl border border-navy-700 bg-navy-900 p-6">
+        <h2 class="font-display text-xl font-bold text-white mb-4">Curriculum Appearances</h2>
+        <div class="space-y-4">
+          {Object.entries(patient.appearances)
+            .sort(([a], [b]) => parseInt(a) - parseInt(b))
+            .map(([phase, moduleIds]) => (
+              <div>
+                <h3 class="text-sm font-semibold text-teal-400 mb-2">
+                  {phaseNames[phase] ?? `Phase ${phase}`}
+                </h3>
+                {moduleIds.length === 0 ? (
+                  <p class="text-sm text-slate-500 italic">Appearances coming in future phases</p>
+                ) : (
+                  <div class="flex flex-wrap gap-2">
+                    {moduleIds.map((moduleId) => {
+                      // Parse module ID to build URL
+                      const parts = moduleId.match(/^p(\d+)-d(\d+)-u(\d+)-m(\d+)$/);
+                      const href = parts
+                        ? `${base}phase/${parts[1]}/${parts[2]}/${parts[3]}/${moduleId}`
+                        : '#';
+                      return (
+                        <a
+                          href={href}
+                          class="rounded-xl border border-navy-600 bg-navy-800 px-3 py-1.5 text-sm text-slate-300 hover:border-teal-500 hover:text-teal-300 transition-colors font-mono"
+                        >
+                          {moduleId}
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+
+    <!-- Right column: sidebar -->
+    <div class="space-y-6">
+      <!-- Quick stats card -->
+      <div class="rounded-2xl border border-navy-700 bg-navy-900 p-5">
+        <h2 class="font-display text-lg font-bold text-white mb-4">Your Encounters</h2>
+        <div class="text-center py-4">
+          <p class="text-4xl font-black text-teal-400 mb-1">0</p>
+          <p class="text-sm text-slate-400">encounters completed</p>
+        </div>
+        <p class="text-xs text-slate-500 text-center mt-2">
+          Progress tracked as you complete modules featuring this patient.
+        </p>
+      </div>
+
+      <!-- Clinical thread card -->
+      <div class="rounded-2xl border border-teal-500/20 bg-teal-900/10 p-5">
+        <h2 class="font-display text-lg font-bold text-teal-400 mb-3">Clinical Thread</h2>
+        <p class="text-sm text-slate-300 leading-relaxed">{patient.clinicalThread}</p>
+      </div>
+
+      <!-- Return to patients -->
+      <a
+        href={`${base}patients`}
+        class="block w-full text-center rounded-xl border border-navy-600 bg-navy-800 py-3 text-slate-300 hover:bg-navy-700 hover:border-navy-500 transition-colors text-sm font-medium"
+      >
+        ← All Patients
+      </a>
+    </div>
+  </div>
+</DashboardLayout>
