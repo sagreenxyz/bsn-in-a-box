@@ -27,29 +27,29 @@ import NCLEXReadinessMeter from '../../components/assessment/NCLEXReadinessMeter
     </h2>
     <div class="space-y-4">
       {[
-        { phase: 1, title: 'Foundations of Nursing Practice', modules: 12, completed: 0 },
-        { phase: 2, title: 'Intermediate Clinical Practice', modules: 0, completed: 0, locked: true },
-        { phase: 3, title: 'Advanced Clinical Nursing', modules: 0, completed: 0, locked: true },
-        { phase: 4, title: 'Synthesis and Leadership', modules: 0, completed: 0, locked: true },
+        { phase: 1, title: 'Foundations of Nursing Practice', modules: 12, completed: 0, border: 'border-teal-500/40', bg: 'bg-teal-950/20', label: 'text-teal-400', bar: 'bg-gradient-to-r from-teal-500 to-cyan-400' },
+        { phase: 2, title: 'Intermediate Clinical Practice', modules: 0, completed: 0, locked: true, border: 'border-violet-500/20', bg: 'bg-violet-950/10', label: 'text-violet-400', bar: 'bg-gradient-to-r from-violet-500 to-purple-400' },
+        { phase: 3, title: 'Advanced Clinical Nursing', modules: 0, completed: 0, locked: true, border: 'border-gold-500/20', bg: 'bg-gold-950/10', label: 'text-gold-400', bar: 'bg-gradient-to-r from-gold-500 to-amber-400' },
+        { phase: 4, title: 'Synthesis and Leadership', modules: 0, completed: 0, locked: true, border: 'border-emerald-500/20', bg: 'bg-emerald-950/10', label: 'text-emerald-400', bar: 'bg-gradient-to-r from-emerald-500 to-green-400' },
       ].map((p) => (
-        <div class={`rounded-xl border p-6 ${p.locked ? 'border-slate-800 opacity-50' : 'border-slate-700 bg-slate-900'}`}>
+        <div class={`rounded-xl border p-6 ${p.locked ? `${p.border} ${p.bg} opacity-50` : `${p.border} ${p.bg}`}`}>
           <div class="flex items-center justify-between mb-3">
             <div>
-              <span class="text-xs font-bold uppercase tracking-widest text-slate-500">Phase {p.phase}</span>
+              <span class={`text-xs font-bold uppercase tracking-widest ${p.label}`}>Phase {p.phase}</span>
               <h3 class="font-serif font-semibold text-white">{p.title}</h3>
             </div>
             {p.locked ? (
               <span class="text-slate-600 text-sm">Locked</span>
             ) : (
-              <span class="font-mono text-sm text-teal-400">
+              <span class={`font-mono text-sm ${p.label}`}>
                 {p.completed}/{p.modules} modules
               </span>
             )}
           </div>
           {!p.locked && (
-            <div class="w-full bg-slate-700 rounded-full h-2">
+            <div class="w-full bg-slate-800/80 rounded-full h-2">
               <div
-                class="h-2 rounded-full bg-teal-500 transition-all"
+                class={`h-2 rounded-full ${p.bar} transition-all`}
                 style={`width: ${p.modules > 0 ? Math.round((p.completed / p.modules) * 100) : 0}%`}
                 role="progressbar"
                 aria-valuenow={p.completed}
@@ -74,7 +74,7 @@ import NCLEXReadinessMeter from '../../components/assessment/NCLEXReadinessMeter
     <h2 id="concept-mastery-heading" class="text-xl font-serif font-bold text-white mb-4">
       Concept Mastery
     </h2>
-    <div class="rounded-xl border border-slate-700 bg-slate-900 p-6 text-center text-slate-400">
+    <div class="rounded-xl border border-slate-700/60 bg-slate-900/40 p-6 text-center text-slate-400">
       <p>Concept mastery scores will appear here after you complete your first quiz.</p>
       <p class="text-sm mt-2">
         Each of the 35 core nursing concepts is scored based on your performance across all
@@ -88,7 +88,7 @@ import NCLEXReadinessMeter from '../../components/assessment/NCLEXReadinessMeter
     <h2 id="calibration-heading" class="text-xl font-serif font-bold text-white mb-4">
       Metacognitive Calibration
     </h2>
-    <div class="rounded-xl border border-slate-700 bg-slate-900 p-6">
+    <div class="rounded-xl border border-slate-700/60 bg-slate-900/40 p-6">
       <p class="text-slate-400 leading-relaxed">
         Your metacognitive calibration data will appear here once you have completed your first
         unit assessment. Before each unit begins, you will rate your confidence on each topic.
@@ -104,14 +104,14 @@ import NCLEXReadinessMeter from '../../components/assessment/NCLEXReadinessMeter
     <h2 id="streak-heading" class="text-xl font-serif font-bold text-white mb-4">
       Study Streak
     </h2>
-    <div class="rounded-xl border border-slate-700 bg-slate-900 p-6">
+    <div class="rounded-xl border border-slate-700/60 bg-slate-900/40 p-6">
       <div class="flex items-center gap-6 mb-6">
         <div class="text-center">
-          <p class="font-mono text-4xl font-bold text-teal-400">0</p>
+          <p class="font-mono text-4xl font-bold text-teal-300">0</p>
           <p class="text-xs text-slate-500 mt-1">Current streak</p>
         </div>
         <div class="text-center">
-          <p class="font-mono text-4xl font-bold text-gold-400">0</p>
+          <p class="font-mono text-4xl font-bold text-gold-300">0</p>
           <p class="text-xs text-slate-500 mt-1">Longest streak</p>
         </div>
       </div>
