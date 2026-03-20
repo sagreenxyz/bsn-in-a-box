@@ -6,6 +6,42 @@
  * reminders, longitudinal patient status, and a "study this next" recommendation.
  */
 import DashboardLayout from '../layouts/DashboardLayout.astro';
+
+const phases = [
+  {
+    phase: 1,
+    title: 'Foundations of Nursing Practice',
+    unlocked: true,
+    accent: { border: 'border-teal-500/50', bg: 'bg-teal-950/30', label: 'text-teal-400', bar: 'bg-gradient-to-r from-teal-500 to-cyan-400', ring: 'ring-teal-500/20' },
+  },
+  {
+    phase: 2,
+    title: 'Intermediate Clinical Practice',
+    unlocked: false,
+    accent: { border: 'border-violet-500/30', bg: 'bg-violet-950/20', label: 'text-violet-400', bar: 'bg-gradient-to-r from-violet-500 to-purple-400', ring: 'ring-violet-500/20' },
+  },
+  {
+    phase: 3,
+    title: 'Advanced Clinical Nursing',
+    unlocked: false,
+    accent: { border: 'border-gold-500/30', bg: 'bg-gold-950/20', label: 'text-gold-400', bar: 'bg-gradient-to-r from-gold-500 to-amber-400', ring: 'ring-gold-500/20' },
+  },
+  {
+    phase: 4,
+    title: 'Synthesis and Leadership',
+    unlocked: false,
+    accent: { border: 'border-emerald-500/30', bg: 'bg-emerald-950/20', label: 'text-emerald-400', bar: 'bg-gradient-to-r from-emerald-500 to-green-400', ring: 'ring-emerald-500/20' },
+  },
+];
+
+const patients = [
+  { id: 'marcus-webb', name: 'Marcus Webb', age: 24, thread: 'Diabetes, social determinants of health', color: 'border-teal-500/30 hover:border-teal-400/60 hover:bg-teal-950/30' },
+  { id: 'eleanor-vasquez', name: 'Eleanor Vasquez', age: 67, thread: 'Cardiovascular, renal, end-of-life', color: 'border-crimson-500/30 hover:border-crimson-400/60 hover:bg-crimson-950/30' },
+  { id: 'jordan-okafor', name: 'Jordan Okafor', age: 34, thread: 'Psychiatric-mental health, surgical', color: 'border-violet-500/30 hover:border-violet-400/60 hover:bg-violet-950/30' },
+  { id: 'amara-osei', name: 'Amara Osei', age: 28, thread: 'Maternal-newborn, obstetric emergencies', color: 'border-gold-500/30 hover:border-gold-400/60 hover:bg-gold-950/30' },
+  { id: 'thomas-nguyen', name: 'Thomas Nguyen', age: 8, thread: 'Pediatric, respiratory, school health', color: 'border-emerald-500/30 hover:border-emerald-400/60 hover:bg-emerald-950/30' },
+  { id: 'ruth-abramowitz', name: 'Ruth Abramowitz', age: 81, thread: 'Geriatric, polypharmacy, ethics', color: 'border-sky-500/30 hover:border-sky-400/60 hover:bg-sky-950/30' },
+];
 ---
 
 <DashboardLayout
@@ -19,32 +55,33 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
     </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <!-- Overall progress ring placeholder -->
-      <div class="rounded-xl border border-slate-700 bg-slate-900 p-6 flex flex-col items-center gap-3">
+      <div class="rounded-xl border border-teal-500/20 bg-teal-950/20 p-6 flex flex-col items-center gap-3">
         <div
-          class="w-24 h-24 rounded-full border-4 border-teal-500 flex items-center justify-center"
+          class="w-24 h-24 rounded-full border-4 border-teal-400 flex items-center justify-center"
+          style="box-shadow: 0 0 20px rgba(34,211,238,0.25);"
           aria-label="Overall completion: 0%"
         >
-          <span class="font-mono text-2xl font-bold text-teal-400">0%</span>
+          <span class="font-mono text-2xl font-bold text-teal-300">0%</span>
         </div>
         <p class="text-sm text-slate-400 text-center">Overall Completion</p>
       </div>
 
       <!-- Current phase indicator -->
-      <div class="rounded-xl border border-slate-700 bg-slate-900 p-6 flex flex-col justify-center gap-2">
+      <div class="rounded-xl border border-teal-500/20 bg-slate-900/60 p-6 flex flex-col justify-center gap-2">
         <p class="text-xs uppercase tracking-widest text-slate-500 font-bold">Current Phase</p>
         <p class="text-2xl font-serif font-bold text-white">Phase 1</p>
-        <p class="text-sm text-teal-400">Foundations of Nursing Practice</p>
+        <p class="text-sm text-teal-300">Foundations of Nursing Practice</p>
       </div>
 
       <!-- NCLEX readiness gauge -->
-      <div class="rounded-xl border border-slate-700 bg-slate-900 p-6 flex flex-col justify-center gap-2">
+      <div class="rounded-xl border border-slate-700/60 bg-slate-900/60 p-6 flex flex-col justify-center gap-2">
         <p class="text-xs uppercase tracking-widest text-slate-500 font-bold">NCLEX Readiness</p>
         <p class="text-2xl font-serif font-bold text-white">—</p>
         <p class="text-sm text-slate-400">Complete Phase 1 to unlock</p>
       </div>
 
       <!-- Study streak -->
-      <div class="rounded-xl border border-slate-700 bg-slate-900 p-6 flex flex-col justify-center gap-2">
+      <div class="rounded-xl border border-gold-500/20 bg-gold-950/20 p-6 flex flex-col justify-center gap-2">
         <p class="text-xs uppercase tracking-widest text-slate-500 font-bold">Study Streak</p>
         <p class="text-2xl font-serif font-bold text-white">0 days</p>
         <p class="text-sm text-slate-400">Start your streak today</p>
@@ -57,15 +94,19 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
     <h2 id="continue-heading" class="text-xl font-serif font-bold text-white mb-4">
       Continue Learning
     </h2>
-    <div class="rounded-xl border border-teal-700 bg-teal-950 p-6 flex items-center justify-between gap-4">
+    <div
+      class="rounded-xl border border-teal-500/30 p-6 flex items-center justify-between gap-4"
+      style="background: linear-gradient(135deg, rgba(6,182,212,0.12) 0%, rgba(139,92,246,0.08) 100%); border-image: none;"
+    >
       <div>
-        <p class="text-sm text-teal-400 font-medium mb-1">Next module in Phase 1</p>
+        <p class="text-sm text-teal-300 font-medium mb-1">Next module in Phase 1</p>
         <p class="text-lg font-serif font-bold text-white">The Discipline of Nursing</p>
         <p class="text-sm text-slate-400 mt-1">Domain 1 · Unit 1 · 45 min estimated</p>
       </div>
       <a
         href="/bsn-in-a-box/phase/1/professional-identity/nursing-profession/p1-d1-u1-m01"
-        class="rounded-lg bg-teal-600 px-6 py-3 font-bold text-white hover:bg-teal-500 transition-colors whitespace-nowrap min-h-[44px] flex items-center"
+        class="rounded-lg px-6 py-3 font-bold text-white hover:opacity-90 transition-opacity whitespace-nowrap min-h-[44px] flex items-center"
+        style="background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%); box-shadow: 0 4px 15px rgba(6,182,212,0.3);"
       >
         Start →
       </a>
@@ -78,15 +119,10 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
       Curriculum Phases
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {[
-        { phase: 1, title: 'Foundations of Nursing Practice', unlocked: true, color: 'teal' },
-        { phase: 2, title: 'Intermediate Clinical Practice', unlocked: false, color: 'slate' },
-        { phase: 3, title: 'Advanced Clinical Nursing', unlocked: false, color: 'slate' },
-        { phase: 4, title: 'Synthesis and Leadership', unlocked: false, color: 'slate' },
-      ].map((p) => (
-        <div class={`rounded-xl border p-6 ${p.unlocked ? 'border-teal-700 bg-slate-900' : 'border-slate-700 bg-slate-900 opacity-60'}`}>
+      {phases.map((p) => (
+        <div class={`rounded-xl border p-6 ${p.unlocked ? `${p.accent.border} ${p.accent.bg} ring-1 ${p.accent.ring}` : `${p.accent.border} ${p.accent.bg} opacity-50`}`}>
           <div class="flex items-start justify-between mb-3">
-            <span class={`text-xs font-bold uppercase tracking-widest ${p.unlocked ? 'text-teal-400' : 'text-slate-500'}`}>
+            <span class={`text-xs font-bold uppercase tracking-widest ${p.accent.label}`}>
               Phase {p.phase}
             </span>
             {!p.unlocked && (
@@ -94,8 +130,8 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
             )}
           </div>
           <p class="font-serif font-bold text-white text-sm leading-snug mb-3">{p.title}</p>
-          <div class="w-full bg-slate-700 rounded-full h-1.5">
-            <div class={`h-1.5 rounded-full ${p.unlocked ? 'bg-teal-500' : 'bg-slate-600'}`} style="width: 0%"></div>
+          <div class="w-full bg-slate-800/80 rounded-full h-1.5">
+            <div class={`h-1.5 rounded-full ${p.unlocked ? p.accent.bar : 'bg-slate-600'}`} style="width: 0%"></div>
           </div>
           <p class="text-xs text-slate-500 mt-2">0% complete</p>
         </div>
@@ -108,7 +144,7 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
     <h2 id="retrieval-heading" class="text-xl font-serif font-bold text-white mb-4">
       Spaced Retrieval
     </h2>
-    <div class="rounded-xl border border-slate-700 bg-slate-900 p-6 text-center text-slate-400">
+    <div class="rounded-xl border border-slate-700/60 bg-slate-900/40 p-6 text-center text-slate-400">
       <p>No retrievals are due yet. Complete your first module to start your spaced retrieval schedule.</p>
     </div>
   </section>
@@ -119,22 +155,15 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
       Your Patients
     </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {[
-        { id: 'marcus-webb', name: 'Marcus Webb', age: 24, thread: 'Diabetes, social determinants of health' },
-        { id: 'eleanor-vasquez', name: 'Eleanor Vasquez', age: 67, thread: 'Cardiovascular, renal, end-of-life' },
-        { id: 'jordan-okafor', name: 'Jordan Okafor', age: 34, thread: 'Psychiatric-mental health, surgical' },
-        { id: 'amara-osei', name: 'Amara Osei', age: 28, thread: 'Maternal-newborn, obstetric emergencies' },
-        { id: 'thomas-nguyen', name: 'Thomas Nguyen', age: 8, thread: 'Pediatric, respiratory, school health' },
-        { id: 'ruth-abramowitz', name: 'Ruth Abramowitz', age: 81, thread: 'Geriatric, polypharmacy, ethics' },
-      ].map((patient) => (
+      {patients.map((patient) => (
         <a
           href={`/bsn-in-a-box/patients/${patient.id}`}
-          class="rounded-xl border border-slate-700 bg-slate-900 p-5 hover:border-teal-700 hover:bg-slate-800 transition-colors block"
+          class={`rounded-xl border bg-slate-900/40 p-5 transition-colors block ${patient.color}`}
         >
           <p class="font-serif font-bold text-white mb-1">{patient.name}</p>
           <p class="text-xs text-slate-500 mb-3">Age {patient.age}</p>
           <p class="text-sm text-slate-400 leading-relaxed">{patient.thread}</p>
-          <p class="text-xs text-teal-500 mt-3">0 encounters completed</p>
+          <p class="text-xs text-teal-400 mt-3">0 encounters completed</p>
         </a>
       ))}
     </div>
@@ -145,7 +174,10 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
     <h2 id="recommendation-heading" class="text-xl font-serif font-bold text-white mb-4">
       Recommended Next Step
     </h2>
-    <div class="rounded-xl border border-gold-700 bg-gold-950 p-6">
+    <div
+      class="rounded-xl border border-gold-500/30 p-6"
+      style="background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(251,191,36,0.05) 100%);"
+    >
       <p class="text-gold-300 font-medium mb-2">Begin your BSN journey</p>
       <p class="text-slate-200 leading-relaxed">
         Start with <strong class="text-white">Module 1: The Discipline of Nursing</strong> to establish

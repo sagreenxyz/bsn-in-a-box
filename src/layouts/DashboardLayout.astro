@@ -42,17 +42,19 @@ function isActive(href: string): boolean {
 <BaseLayout title={title} description={description}>
   <!-- Top navigation bar -->
   <nav
-    class="sticky top-0 z-40 border-b border-slate-700 bg-navy bg-opacity-95 backdrop-blur-sm"
+    class="sticky top-0 z-40 border-b border-slate-700/60 bg-[#060d1c]/95 backdrop-blur-sm"
+    style="background-image: linear-gradient(180deg, rgba(6,182,212,0.04) 0%, transparent 100%);"
     aria-label="Primary navigation"
   >
     <div class="mx-auto flex max-w-screen-xl items-center justify-between px-4 py-3">
       <!-- Brand -->
       <a
         href={`${base}/`}
-        class="flex items-center gap-2 text-teal-400 font-serif text-lg font-bold hover:text-teal-300 transition-colors min-h-[44px]"
+        class="flex items-center gap-2 font-serif text-lg font-bold hover:opacity-80 transition-opacity min-h-[44px]"
+        style="background: linear-gradient(135deg, #22d3ee 0%, #a78bfa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
         aria-label="BSN in a Box — Home"
       >
-        <span aria-hidden="true" class="text-2xl">⊕</span>
+        <span aria-hidden="true" class="text-2xl" style="-webkit-text-fill-color: #22d3ee;">⊕</span>
         <span class="hidden sm:inline">BSN in a Box</span>
       </a>
 
@@ -63,10 +65,10 @@ function isActive(href: string): boolean {
             <a
               href={link.href}
               class:list={[
-                'flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors min-h-[44px]',
+                'flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all min-h-[44px]',
                 isActive(link.href)
-                  ? 'bg-teal-900 text-teal-300'
-                  : 'text-slate-300 hover:bg-slate-800 hover:text-white',
+                  ? 'bg-teal-900/60 text-teal-300 font-semibold ring-1 ring-inset ring-teal-500/30'
+                  : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-100',
               ]}
               aria-current={isActive(link.href) ? 'page' : undefined}
             >
@@ -85,12 +87,12 @@ function isActive(href: string): boolean {
   </main>
 
   <!-- Footer -->
-  <footer class="mt-auto border-t border-slate-800 px-4 py-6 text-center text-sm text-slate-500">
+  <footer class="mt-auto border-t border-slate-800/60 px-4 py-6 text-center text-sm text-slate-500">
     <p>
       BSN in a Box — Free, offline-capable nursing education.
       <a
         href="https://github.com/sagreenxyz/bsn-in-a-box"
-        class="text-teal-500 hover:text-teal-400 underline"
+        class="text-teal-400 hover:text-teal-300 underline"
         target="_blank"
         rel="noopener noreferrer"
       >
