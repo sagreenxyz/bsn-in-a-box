@@ -19,8 +19,8 @@
  */
 
 import React, { useState, useCallback } from 'react';
-import { recordCalibration, evaluateCalibration } from '../../lib/calibrationEngine';
-import type { CalibrationResult, ConfidenceMap, ScoreMap } from '../../lib/calibrationEngine';
+import { recordCalibration, evaluateCalibration } from '../../lib/progressStore';
+import type { CalibrationResult, ConfidenceMap, ScoreMap } from '../../lib/progressStore';
 
 interface MetacognitionPanelProps {
   unitId: string;
@@ -151,14 +151,14 @@ export default function MetacognitionPanel({ unitId, topics, mode, scores, onPre
     );
   }
 
-  const { overallCalibrationScore, overconfidentTopics, underconfidentTopics, accurateTopics, explanationProse } = calibrationResult;
+  const { calibrationAccuracy, overconfidentTopics, underconfidentTopics, accurateTopics, explanation } = calibrationResult;
 
   return (
     <div className="rounded-2xl border border-navy-700 bg-navy-900 p-6">
       <h3 className="font-display text-xl font-bold text-white mb-2">Your Calibration Results</h3>
       <div className="mb-6 flex items-center gap-4">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-navy-800 text-2xl font-black text-teal-400">
-          {Math.round(overallCalibrationScore)}%
+          {Math.round(calibrationAccuracy * 100)}%
         </div>
         <div>
           <p className="font-semibold text-white">Calibration Accuracy</p>
@@ -168,7 +168,7 @@ export default function MetacognitionPanel({ unitId, topics, mode, scores, onPre
 
       {/* Prose explanation */}
       <div className="mb-6 rounded-xl bg-navy-800 p-5">
-        <p className="leading-relaxed text-slate-200">{explanationProse}</p>
+        <p className="leading-relaxed text-slate-200">{explanation}</p>
       </div>
 
       {/* Category breakdowns */}
@@ -176,10 +176,9 @@ export default function MetacognitionPanel({ unitId, topics, mode, scores, onPre
         <div className="mb-4 rounded-xl border border-crimson-500/20 bg-crimson-900/10 p-4">
           <p className="font-semibold text-crimson-400 mb-2">Topics Where You Were Overconfident</p>
           <ul className="space-y-1">
-            {overconfidentTopics.map((t) => (
-              <li key={t.topic} className="text-sm text-slate-300">
-                <span className="font-medium">{t.topic}</span>
-                <span className="text-slate-500"> — predicted {t.predicted}/4, scored {Math.round(t.actual * 100)}%</span>
+            {overconfidentTopics.map((topic) => (
+              <li key={topic} className="text-sm text-slate-300">
+                <span className="font-medium">{topic}</span>
               </li>
             ))}
           </ul>
@@ -190,10 +189,9 @@ export default function MetacognitionPanel({ unitId, topics, mode, scores, onPre
         <div className="mb-4 rounded-xl border border-teal-500/20 bg-teal-900/10 p-4">
           <p className="font-semibold text-teal-400 mb-2">Topics Where You Underestimated Yourself</p>
           <ul className="space-y-1">
-            {underconfidentTopics.map((t) => (
-              <li key={t.topic} className="text-sm text-slate-300">
-                <span className="font-medium">{t.topic}</span>
-                <span className="text-slate-500"> — predicted {t.predicted}/4, scored {Math.round(t.actual * 100)}%</span>
+            {underconfidentTopics.map((topic) => (
+              <li key={topic} className="text-sm text-slate-300">
+                <span className="font-medium">{topic}</span>
               </li>
             ))}
           </ul>
@@ -204,8 +202,8 @@ export default function MetacognitionPanel({ unitId, topics, mode, scores, onPre
         <div className="rounded-xl border border-gold-400/20 bg-gold-900/10 p-4">
           <p className="font-semibold text-gold-400 mb-2">Accurately Calibrated Topics</p>
           <ul className="space-y-1">
-            {accurateTopics.map((t) => (
-              <li key={t.topic} className="text-sm text-slate-300">{t.topic}</li>
+            {accurateTopics.map((topic) => (
+              <li key={topic} className="text-sm text-slate-300">{topic}</li>
             ))}
           </ul>
         </div>
