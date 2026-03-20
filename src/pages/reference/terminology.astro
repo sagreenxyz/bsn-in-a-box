@@ -1,0 +1,17 @@
+---
+/**
+ * reference/terminology.astro
+ * Medical terminology reference page.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import MedicalTerminology from '../../components/learning/MedicalTerminology';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<ToolLayout
+  title="Medical Terminology"
+  description="Medical terms with root, prefix, and suffix deconstruction. Browse terms, explore word parts, or use flash review. All data loaded locally."
+  breadcrumbs={[{ label: 'Reference', href: `${base}/reference` }]}
+>
+  <MedicalTerminology client:load />
+</ToolLayout>

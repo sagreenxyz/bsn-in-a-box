@@ -1,0 +1,17 @@
+---
+/**
+ * tools/care-plan-builder.astro
+ * Standalone page for the NANDA/NOC/NIC Care Plan Builder tool.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import CarePlanBuilder from '../../components/clinical/CarePlanBuilder';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<ToolLayout
+  title="Care Plan Builder"
+  description="Step-by-step nursing care plan builder using NANDA-I diagnoses, NOC outcomes, and NIC interventions. Build and export a formatted care plan."
+  breadcrumbs={[{ label: 'Tools', href: `${base}/tools` }]}
+>
+  <CarePlanBuilder client:load />
+</ToolLayout>

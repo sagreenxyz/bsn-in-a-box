@@ -1,0 +1,17 @@
+---
+/**
+ * tools/priority-patients.astro
+ * Standalone page for the Priority Patients triage/delegation scenarios tool.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import PriorityPatients from '../../components/clinical/PriorityPatients';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<ToolLayout
+  title="Priority Patients"
+  description="Multi-patient assignment scenarios. Practice triage, prioritization, and delegation decisions with full rationale-based feedback on each choice."
+  breadcrumbs={[{ label: 'Tools', href: `${base}/tools` }]}
+>
+  <PriorityPatients client:load />
+</ToolLayout>

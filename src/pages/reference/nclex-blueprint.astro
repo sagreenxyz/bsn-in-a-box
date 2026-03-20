@@ -1,0 +1,17 @@
+---
+/**
+ * reference/nclex-blueprint.astro
+ * NCLEX-NGN test plan blueprint reference page.
+ */
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import NCLEXBlueprint from '../../components/learning/NCLEXBlueprint';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<ToolLayout
+  title="NCLEX-NGN Blueprint"
+  description="The 2023 Next Generation NCLEX-RN test plan with client needs categories, NGN item formats, and the Clinical Judgment Measurement Model (CJMM) cognitive skills."
+  breadcrumbs={[{ label: 'Reference', href: `${base}/reference` }]}
+>
+  <NCLEXBlueprint client:load />
+</ToolLayout>

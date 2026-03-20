@@ -1,0 +1,106 @@
+{
+  "scenarioId": "marcus-webb-phase-1",
+  "patientId": "marcus-webb",
+  "phase": 1,
+  "title": "Meeting Marcus Webb: First Encounter",
+  "startNodeId": "node-01",
+  "nodes": [
+    {
+      "nodeId": "node-01",
+      "type": "assessment",
+      "content": "You are a nursing student completing your first clinical day at a university health center. Your preceptor introduces you to Marcus Webb, a 24-year-old African American college student who made an appointment after his roommate noticed he had been drinking large amounts of water and seemed unusually tired for several weeks. Marcus is a junior studying computer science, works 20 hours a week at a coffee shop, and lives in campus housing. He appears thin, slightly anxious, and makes eye contact readily. He tells you, 'I figured I was just stressed about finals, but my roommate basically dragged me here.' This is your first assessment encounter — your goal is to conduct a health history and begin building a therapeutic relationship.",
+      "choices": [
+        {
+          "id": "c1a",
+          "text": "Introduce yourself, explain your role as a student nurse, and begin with an open-ended question: 'Tell me what's been going on for you lately.'",
+          "nextNodeId": "node-02",
+          "isCorrect": true,
+          "rationale": "Beginning with a clear introduction that establishes your role is both ethically required (informed consent for the student-patient relationship) and therapeutically effective. The open-ended question invites Marcus to narrate his experience in his own words, which is more likely to surface the full clinical picture than a series of closed-ended questions. Patients frequently omit what seems most important to them when they feel they are being interrogated with yes/no questions.",
+          "scoreImpact": 10
+        },
+        {
+          "id": "c1b",
+          "text": "Start immediately with a checklist of health history questions about his chief complaint — how much is he drinking, how much weight has he lost, has he had any blurry vision.",
+          "nextNodeId": "node-02b",
+          "isCorrect": false,
+          "rationale": "Jumping directly into symptom-focused questioning before establishing rapport and introducing yourself is both ethically incomplete (Marcus doesn't know who you are or what your role is) and clinically suboptimal — you are likely to get more complete and accurate information from a patient who feels heard as a person than from one who feels they are being processed as a symptom checklist. This approach also misses the therapeutic relationship component that nursing emphasizes as clinically meaningful.",
+          "scoreImpact": -5
+        }
+      ]
+    },
+    {
+      "nodeId": "node-02",
+      "type": "assessment",
+      "content": "Marcus relaxes slightly and tells you his story. He has been drinking 'probably a gallon, maybe more' of water per day for about a month and urinating constantly. He has lost about 12 pounds without trying. He has been extremely tired — falling asleep in his afternoon classes — and has had blurry vision in the evenings. He mentions almost offhandedly that he has had a sore on his right foot 'that isn't really healing' for two weeks. His roommate's concern escalated when Marcus told him the sore was there. He has no significant past medical history. His mother has Type 2 diabetes. He has no health insurance and is relying on the student health plan that covers primary care visits but has a $500 deductible for specialist care and laboratory tests.",
+      "choices": [
+        {
+          "id": "c2a",
+          "text": "Ask to examine the foot wound, obtain his vital signs, and arrange for a finger-stick glucose as an immediate assessment priority before completing the rest of the history.",
+          "nextNodeId": "node-03",
+          "isCorrect": true,
+          "rationale": "The symptom cluster Marcus describes — polydipsia, polyuria, polyphagia, weight loss, fatigue, visual changes, and a non-healing wound — is the classic presentation of undiagnosed Type 1 diabetes mellitus, and the non-healing foot wound raises immediate concern about his glucose level. An undiagnosed patient with Type 1 diabetes is at risk for diabetic ketoacidosis. Obtaining a glucose immediately while completing the rest of the assessment appropriately prioritizes a potentially urgent finding without abandoning the comprehensive history.",
+          "scoreImpact": 15
+        },
+        {
+          "id": "c2b",
+          "text": "Complete the full health history in systematic order before performing any physical assessment or tests.",
+          "nextNodeId": "node-03b",
+          "isCorrect": false,
+          "rationale": "While a systematic approach to the health history is important, clinical priority requires that assessment and response to potentially urgent findings be integrated into the process rather than deferred until a checklist is complete. Marcus's symptom cluster suggests probable diabetic ketoacidosis risk. Completing a full history in systematic order before any assessment of an acutely concerning finding represents a choice of process adherence over clinical judgment — a pattern that experienced nurses are taught to recognize and correct.",
+          "scoreImpact": -5
+        }
+      ]
+    },
+    {
+      "nodeId": "node-03",
+      "type": "decision",
+      "content": "Marcus's vital signs: temperature 37.1°C, pulse 96 bpm, respirations 20/min, blood pressure 108/72 mmHg, oxygen saturation 98%. His finger-stick glucose is 487 mg/dL. He is alert and oriented. His skin is dry with decreased turgor. The wound on his right foot is a 1.5 cm circular ulceration on the plantar surface of the great toe, with surrounding erythema, no visible bone, no purulent drainage, and no visible necrosis. Marcus looks at you and asks, 'Is that number bad?'",
+      "vitals": {
+        "Temperature": "37.1°C",
+        "Pulse": "96 bpm",
+        "Respirations": "20/min",
+        "Blood Pressure": "108/72 mmHg",
+        "SpO2": "98%",
+        "Finger-stick Glucose": "487 mg/dL"
+      },
+      "choices": [
+        {
+          "id": "c3a",
+          "text": "Answer Marcus honestly in language he can understand: 'Yes, your glucose is significantly elevated — a normal fasting glucose is under 100. This, combined with your symptoms, means we need to get you seen by a provider right away. I'm going to let your nurse know and we'll get this moving quickly.' Then immediately notify your preceptor.",
+          "nextNodeId": "node-04",
+          "isCorrect": true,
+          "rationale": "Marcus asked a direct question and deserves an honest, clear answer given at an appropriate level for a lay person. Telling him the truth respects his autonomy and prepares him for what is coming — a more extensive workup and likely urgent referral or same-day emergency department evaluation. Simultaneously notifying your preceptor is the correct student nurse action: you have identified a finding that requires immediate provider response, and your scope as a student does not include independently managing a glucose of 487 with clinical signs of diabetes. Honest communication paired with immediate escalation is the correct response.",
+          "scoreImpact": 15
+        },
+        {
+          "id": "c3b",
+          "text": "Reassure Marcus that 'it's a bit high but we'll get it sorted out' without being specific, and then finish documenting your findings before calling your preceptor.",
+          "nextNodeId": "node-04b",
+          "isCorrect": false,
+          "rationale": "Vague reassurance when a finding is genuinely urgent is a therapeutic communication failure and potentially a safety failure. Marcus's glucose of 487 with a symptom history consistent with new-onset Type 1 diabetes and a non-healing wound is urgent — he needs to understand this so he can make informed decisions about his care. Finishing documentation before notifying your preceptor is a prioritization error: the finding comes first, documentation follows.",
+          "scoreImpact": -10
+        }
+      ]
+    },
+    {
+      "nodeId": "node-04",
+      "type": "outcome",
+      "content": "Your preceptor commends your assessment and immediately notifies the student health physician. Marcus is seen within 15 minutes. Laboratory work confirms Type 1 diabetes mellitus: HbA1c 12.8%, positive anti-GAD antibodies, negative C-peptide. His glucose of 487 with early signs of dehydration leads the physician to coordinate direct admission to the affiliated hospital for IV insulin initiation and diabetic education. Before he leaves with his roommate to go to the hospital, Marcus stops you and says, 'Thank you for not freaking me out but also not lying to me.' You have taken care of a person today — not just a glucose number."
+    },
+    {
+      "nodeId": "node-02b",
+      "type": "outcome",
+      "content": "You begin rapid-fire questioning about his symptoms. Marcus answers but becomes visibly guarded — he gives brief yes/no answers and stops volunteering information. When you ask about the foot wound, he hesitates and says 'oh, it's fine' — and you nearly miss it entirely before your preceptor, who has been observing, gently steps in and re-establishes rapport. The clinical picture is eventually assembled, but the early opportunity to create a therapeutic relationship that would have made Marcus a partner in his own care has been set back."
+    },
+    {
+      "nodeId": "node-03b",
+      "type": "outcome",
+      "content": "You proceed through the remaining health history questions systematically. Eight minutes later, when you finally obtain the glucose, the reading of 487 prompts immediate notification. Your preceptor notes, correctly, that the combination of polydipsia, polyuria, and weight loss with a family history of diabetes should have prioritized a glucose check much earlier in the assessment. 'Clinical judgment means knowing when to interrupt the protocol,' she tells you. 'The protocol is a scaffold, not a ceiling.'"
+    },
+    {
+      "nodeId": "node-04b",
+      "type": "outcome",
+      "content": "You finish documenting, then call your preceptor. By this time, Marcus has asked three more times what his glucose number meant and received three non-answers. When your preceptor arrives, Marcus is visibly anxious and has stopped asking questions. The preceptor handles the disclosure of findings and the communication of urgency professionally, but notes afterward: 'He deserved to know what was happening when it was happening. Honesty with patients — even when the news is difficult — is part of therapeutic relationship, not a departure from it.'"
+    }
+  ]
+}
